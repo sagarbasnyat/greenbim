@@ -1,150 +1,169 @@
 import pandas as pd
 from difflib import get_close_matches
+from core.co2data_api import get_finnish_carbon_value
 
 FINNISH_BENCHMARKS = {
-    "Residential apartment block": {"target": 400, "reference_years": 50},
-    "Detached house": {"target": 450, "reference_years": 50},
-    "Office building": {"target": 450, "reference_years": 50},
-    "School or educational": {"target": 360, "reference_years": 50},
-    "Commercial retail": {"target": 500, "reference_years": 50},
-    "Industrial warehouse": {"target": 550, "reference_years": 50},
-    "Hospital or healthcare": {"target": 520, "reference_years": 50},
+    "Residential apartment block": {
+        "target": 400, "reference_years": 50
+    },
+    "Detached house": {
+        "target": 450, "reference_years": 50
+    },
+    "Office building": {
+        "target": 450, "reference_years": 50
+    },
+    "School or educational": {
+        "target": 360, "reference_years": 50
+    },
+    "Commercial retail": {
+        "target": 500, "reference_years": 50
+    },
+    "Industrial warehouse": {
+        "target": 550, "reference_years": 50
+    },
+    "Hospital or healthcare": {
+        "target": 520, "reference_years": 50
+    },
 }
 
-# Smart keyword mapping — maps common IFC material keywords
-# to your database material names
 KEYWORD_MAP = {
-    # Concrete variations
-    "concrete": "Concrete (general C25/30)",
-    "beton": "Concrete (general C25/30)",
-    "c20": "Concrete (general C25/30)",
-    "c25": "Concrete (general C25/30)",
-    "c30": "Concrete (reinforced C30/37 1%)",
-    "c35": "Concrete (reinforced C35/45 2%)",
-    "c40": "Concrete (reinforced C35/45 2%)",
+    "concrete": "Concrete (C25/30 general)",
+    "beton": "Concrete (C25/30 general)",
+    "betoni": "Concrete (C25/30 general)",
+    "c20": "Concrete (C20/25 general)",
+    "c25": "Concrete (C25/30 general)",
+    "c30": "Concrete (C30/37 general)",
+    "c35": "Concrete (C35/45 general)",
+    "c40": "Concrete (C40/50 high strength)",
+    "c50": "Concrete (C50/60 high strength)",
     "reinforced": "Concrete (reinforced C30/37 1%)",
+    "teräsbetoni": "Concrete (reinforced C30/37 1%)",
     "stahlbeton": "Concrete (reinforced C30/37 1%)",
-    "precast": "Concrete (precast element)",
-    "fertigbeton": "Concrete (precast element)",
+    "precast": "Concrete (precast element standard)",
+    "elementti": "Concrete (precast element standard)",
+    "ontelolaatta": "Concrete (precast hollow core slab)",
+    "hollow core": "Concrete (precast hollow core slab)",
+    "sandwich": "Concrete (precast sandwich element)",
     "ggbs": "Concrete (low carbon 50% GGBS)",
-    "low carbon concrete": "Concrete (low carbon 50% GGBS)",
-
-    # Steel variations
+    "aac": "Concrete (AAC autoclaved aerated)",
+    "ytong": "Concrete (AAC autoclaved aerated)",
     "steel": "Steel (structural section S355)",
-    "stahl": "Steel (structural section S355)",
-    "metal": "Steel (structural section S355)",
-    "s235": "Steel (structural section S355)",
-    "s275": "Steel (structural section S355)",
+    "teräs": "Steel (structural section S355)",
     "s355": "Steel (structural section S355)",
+    "hea": "Steel (hot rolled HEA HEB)",
+    "rhs": "Steel (hollow section RHS CHS)",
     "rebar": "Steel (rebar B500B)",
-    "reinforcement": "Steel (rebar B500B)",
-    "bewehrung": "Steel (rebar B500B)",
-    "eaf": "Steel (recycled EAF route)",
-    "recycled steel": "Steel (recycled EAF route)",
-
-    # Timber variations
-    "timber": "Timber (glulam GL30)",
-    "wood": "Timber (softwood sawn)",
-    "holz": "Timber (softwood sawn)",
+    "harjateräs": "Steel (rebar B500B)",
+    "b500": "Steel (rebar B500B)",
+    "timber": "Timber (softwood sawn C24)",
+    "wood": "Timber (softwood sawn C24)",
+    "puu": "Timber (softwood sawn C24)",
+    "sahatavara": "Timber (softwood sawn C24)",
     "glulam": "Timber (glulam GL30)",
-    "brettschichtholz": "Timber (glulam GL30)",
-    "bsh": "Timber (glulam GL30)",
+    "liimapuu": "Timber (glulam GL30)",
+    "gl30": "Timber (glulam GL30)",
     "clt": "Timber (CLT cross laminated)",
-    "cross laminated": "Timber (CLT cross laminated)",
-    "kreuzlagenholz": "Timber (CLT cross laminated)",
-    "lvl": "Timber (LVL laminated veneer)",
-    "softwood": "Timber (softwood sawn)",
-    "nadelholz": "Timber (softwood sawn)",
-    "pine": "Timber (softwood sawn)",
-    "spruce": "Timber (softwood sawn)",
-
-    # Masonry variations
-    "brick": "Brick (clay fired)",
-    "ziegel": "Brick (clay fired)",
-    "clay": "Brick (clay fired)",
-    "masonry": "Brick (clay fired)",
-    "mauerwerk": "Brick (clay fired)",
-    "calcium silicate": "Brick (calcium silicate)",
-    "kalksandstein": "Brick (calcium silicate)",
-
-    # Glass variations
-    "glass": "Glass (float general)",
-    "glas": "Glass (float general)",
-    "glazing": "Glass (float general)",
-    "verglasung": "Glass (float general)",
-    "triple": "Glass (triple glazed unit)",
-    "dreifach": "Glass (triple glazed unit)",
-
-    # Aluminium variations
-    "aluminium": "Aluminium (general primary)",
-    "aluminum": "Aluminium (general primary)",
-    "aluminiu": "Aluminium (general primary)",
-    "alu": "Aluminium (general primary)",
-
-    # Insulation variations
-    "insulation": "Insulation (mineral wool)",
-    "daemmung": "Insulation (mineral wool)",
-    "mineral wool": "Insulation (mineral wool)",
-    "mineralwolle": "Insulation (mineral wool)",
-    "rockwool": "Insulation (mineral wool)",
-    "glasswool": "Insulation (mineral wool)",
+    "lvl": "Timber (LVL Kerto)",
+    "kerto": "Timber (LVL Kerto)",
+    "plywood": "Plywood (spruce)",
+    "osb": "OSB board",
+    "mineral wool": "Insulation (mineral wool 30kg)",
+    "mineraalivilla": "Insulation (mineral wool 30kg)",
+    "paroc": "Insulation (mineral wool 50kg)",
+    "isover": "Insulation (mineral wool 30kg)",
+    "rockwool": "Insulation (mineral wool 50kg)",
+    "villa": "Insulation (mineral wool 30kg)",
     "eps": "Insulation (EPS expanded)",
     "polystyrene": "Insulation (EPS expanded)",
-    "styrofoam": "Insulation (EPS expanded)",
-    "xps": "Polystyrene (XPS)",
+    "styrox": "Insulation (EPS expanded)",
+    "xps": "Insulation (XPS extruded)",
+    "finnfoam": "Insulation (XPS extruded)",
     "wood fibre": "Insulation (wood fibre)",
-    "holzfaser": "Insulation (wood fibre)",
     "cellulose": "Insulation (cellulose)",
-
-    # Gypsum variations
-    "gypsum": "Gypsum board (standard)",
-    "gips": "Gypsum board (standard)",
-    "plasterboard": "Gypsum board (standard)",
-    "drywall": "Gypsum board (standard)",
-    "plaster": "Gypsum board (standard)",
-
-    # Stone variations
-    "granite": "Stone (granite)",
-    "granit": "Stone (granite)",
-    "limestone": "Stone (limestone)",
-    "kalkstein": "Stone (limestone)",
-    "stone": "Stone (granite)",
-    "stein": "Stone (granite)",
-
-    # Other
-    "ceramic": "Ceramic tiles",
-    "keramik": "Ceramic tiles",
-    "tile": "Ceramic tiles",
+    "gypsum": "Gypsum board (standard 13mm)",
+    "kipsilevy": "Gypsum board (standard 13mm)",
+    "gyproc": "Gypsum board (standard 13mm)",
+    "plasterboard": "Gypsum board (standard 13mm)",
+    "brick": "Brick (clay fired standard)",
+    "tiili": "Brick (clay fired standard)",
+    "calcium silicate": "Brick (calcium silicate)",
+    "glass": "Glass (float general)",
+    "lasi": "Glass (float general)",
+    "glazing": "Glass (double glazed unit)",
+    "aluminium": "Aluminium (primary extrusion)",
+    "aluminum": "Aluminium (primary extrusion)",
+    "alumiini": "Aluminium (primary extrusion)",
     "copper": "Copper (general)",
-    "kupfer": "Copper (general)",
+    "kupari": "Copper (general)",
+    "granite": "Stone (granite)",
+    "graniitti": "Stone (granite)",
+    "stone": "Stone (granite)",
+    "kivi": "Stone (granite)",
+    "ceramic": "Ceramic tiles (floor)",
+    "laatta": "Ceramic tiles (floor)",
+    "bitumen": "Bitumen membrane (roofing)",
+    "bituumi": "Bitumen membrane (roofing)",
+    "sand": "Sand (fill)",
+    "hiekka": "Sand (fill)",
+    "gravel": "Gravel (fill)",
+    "sora": "Gravel (fill)",
+    "mortar": "Mortar (general)",
+    "laasti": "Mortar (general)",
+    "screed": "Screed (cement based)",
 }
+
+FALLBACK_DENSITIES = {
+    "concrete": 2400,
+    "steel": 7850,
+    "timber": 500,
+    "wood": 500,
+    "insulation": 30,
+    "glass": 2500,
+    "aluminium": 2700,
+    "brick": 1700,
+    "gypsum": 950,
+    "stone": 2600,
+    "copper": 8900,
+    "default": 1000,
+}
+
+_carbon_db = None
 
 
 def load_carbon_db(db_path="data/carbon_db.csv"):
-    return pd.read_csv(db_path)
+    global _carbon_db
+    if _carbon_db is not None:
+        return _carbon_db
+    try:
+        _carbon_db = pd.read_csv(db_path)
+    except Exception:
+        _carbon_db = pd.DataFrame()
+    return _carbon_db
 
 
-def smart_match(material_name, db):
-    if not material_name or material_name == "Unknown":
+def get_fallback_density(material_name):
+    name_lower = material_name.lower()
+    for keyword, density in FALLBACK_DENSITIES.items():
+        if keyword in name_lower:
+            return density
+    return FALLBACK_DENSITIES["default"]
+
+
+def match_csv_material(material_name, db):
+    if db.empty:
         return None
-
     name_lower = material_name.lower().strip()
 
-    # Step 1 — exact match first
     for _, row in db.iterrows():
         if row["material_name"].lower() == name_lower:
             return row
 
-    # Step 2 — keyword map match
     for keyword, mapped_name in KEYWORD_MAP.items():
         if keyword in name_lower:
-            match = db[
-                db["material_name"] == mapped_name
-            ]
+            match = db[db["material_name"] == mapped_name]
             if not match.empty:
                 return match.iloc[0]
 
-    # Step 3 — fuzzy match on full name
     names = db["material_name"].tolist()
     fuzzy = get_close_matches(
         name_lower,
@@ -158,7 +177,6 @@ def smart_match(material_name, db):
         ]
         return db[db["material_name"] == matched].iloc[0]
 
-    # Step 4 — partial word match
     name_words = name_lower.split()
     for word in name_words:
         if len(word) > 3:
@@ -173,46 +191,81 @@ def smart_match(material_name, db):
     return None
 
 
-def calculate_carbon(ifc_df, db_path="data/carbon_db.csv"):
-    db = load_carbon_db(db_path)
+def calculate_carbon(
+    ifc_df, db_path="data/carbon_db.csv"
+):
+    carbon_db = load_carbon_db(db_path)
     results = []
 
     for _, row in ifc_df.iterrows():
-        match = smart_match(str(row["material"]), db)
+        material_name = str(row["material"])
+        volume = row["volume_m3"]
 
-        if match is not None:
-            mass = row["volume_m3"] * match["density_kg_m3"]
-            carbon = mass * match["ec_kg_co2e_per_kg"]
+        finnish_data = get_finnish_carbon_value(material_name)
+
+        if finnish_data:
+            density = finnish_data.get("density_kg_m3")
+            if not density:
+                density = get_fallback_density(material_name)
+            ec_factor = finnish_data["conservative_gwp"]
+            mass = volume * density
+            carbon = mass * ec_factor
+
             results.append({
                 **row.to_dict(),
-                "matched_material": match["material_name"],
-                "density_kg_m3": match["density_kg_m3"],
+                "matched_material": finnish_data["material_name"],
+                "density_kg_m3": density,
                 "mass_kg": round(mass, 2),
-                "ec_factor": match["ec_kg_co2e_per_kg"],
+                "ec_factor": ec_factor,
                 "carbon_kg_co2e": round(carbon, 2),
-                "source": match["source"],
-                "stage": match["stage"],
-                "match_status": "matched"
+                "source": finnish_data["source"],
+                "stage": "A1-A3",
+                "match_status": "matched_co2data",
+                "data_quality": "Finnish verified EPD"
             })
+
         else:
-            results.append({
-                **row.to_dict(),
-                "matched_material": "Unknown",
-                "density_kg_m3": 0,
-                "mass_kg": 0,
-                "ec_factor": 0,
-                "carbon_kg_co2e": 0,
-                "source": "N/A",
-                "stage": "N/A",
-                "match_status": "unmatched"
-            })
+            csv_match = match_csv_material(
+                material_name, carbon_db
+            )
+
+            if csv_match is not None:
+                mass = volume * csv_match["density_kg_m3"]
+                carbon = mass * csv_match["ec_kg_co2e_per_kg"]
+
+                results.append({
+                    **row.to_dict(),
+                    "matched_material": csv_match["material_name"],
+                    "density_kg_m3": csv_match["density_kg_m3"],
+                    "mass_kg": round(mass, 2),
+                    "ec_factor": csv_match["ec_kg_co2e_per_kg"],
+                    "carbon_kg_co2e": round(carbon, 2),
+                    "source": csv_match["source"],
+                    "stage": csv_match["stage"],
+                    "match_status": "matched_csv",
+                    "data_quality": "Generic EN 15804"
+                })
+
+            else:
+                results.append({
+                    **row.to_dict(),
+                    "matched_material": "Unknown",
+                    "density_kg_m3": 0,
+                    "mass_kg": 0,
+                    "ec_factor": 0,
+                    "carbon_kg_co2e": 0,
+                    "source": "N/A",
+                    "stage": "N/A",
+                    "match_status": "unmatched",
+                    "data_quality": "No match"
+                })
 
     return pd.DataFrame(results)
 
 
 def get_hotspots(carbon_df, top_n=3):
     matched = carbon_df[
-        carbon_df["match_status"] == "matched"
+        carbon_df["match_status"] != "unmatched"
     ]
     if matched.empty:
         return pd.DataFrame()
@@ -255,7 +308,9 @@ def get_carbon_by_type(carbon_df):
     )
 
 
-def get_benchmark_result(total_carbon, floor_area, building_type):
+def get_benchmark_result(
+    total_carbon, floor_area, building_type
+):
     if building_type not in FINNISH_BENCHMARKS:
         return None
 
@@ -295,7 +350,9 @@ def get_benchmark_result(total_carbon, floor_area, building_type):
         "target_per_m2": target,
         "budget_kg": round(budget, 1),
         "difference_per_m2": round(difference, 1),
-        "difference_total_t": round(difference_total / 1000, 2),
+        "difference_total_t": round(
+            difference_total / 1000, 2
+        ),
         "percentage_of_target": round(percentage, 1),
         "reference_years": years,
         "status": status,
