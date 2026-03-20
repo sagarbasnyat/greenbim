@@ -130,7 +130,7 @@ def get_ai_recommendations(
     )
 
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model=model="llama3-groq-70b-8192-tool-use-preview",,
         messages=[
             {
                 "role": "user",
