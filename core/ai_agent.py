@@ -1,6 +1,5 @@
 import json
 import os
-from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -51,11 +50,15 @@ def build_building_summary(carbon_df, final_df, substitutions, benchmark_result)
         benchmark_text = (
             f"FINNISH CARBON BENCHMARK:\n"
             f"Building type: {benchmark_result['building_type']}\n"
-            f"Carbon intensity: {benchmark_result['carbon_per_m2']} kgCO2e/m2\n"
-            f"Finnish target: {benchmark_result['target_per_m2']} kgCO2e/m2\n"
+            f"Carbon intensity: "
+            f"{benchmark_result['carbon_per_m2']} kgCO2e/m2\n"
+            f"Finnish target: "
+            f"{benchmark_result['target_per_m2']} kgCO2e/m2\n"
             f"Status: {benchmark_result['label']}\n"
-            f"Difference: {benchmark_result['difference_per_m2']} kgCO2e/m2\n"
-            f"Reference period: {benchmark_result['reference_years']} years"
+            f"Difference: "
+            f"{benchmark_result['difference_per_m2']} kgCO2e/m2\n"
+            f"Reference period: "
+            f"{benchmark_result['reference_years']} years"
         )
 
     summary = (
@@ -69,7 +72,8 @@ def build_building_summary(carbon_df, final_df, substitutions, benchmark_result)
         f"Unmatched elements: {unmatched}\n"
         f"Total embodied carbon A1-A3: {total_carbon_t} tCO2e\n"
         f"Average circularity score: "
-        f"{round(avg_circularity, 3) if avg_circularity else 'N/A'} / 1.0\n"
+        f"{round(avg_circularity, 3) if avg_circularity else 'N/A'}"
+        f" / 1.0\n"
         f"Hazardous material flags: {hazardous_count}\n\n"
         f"TOP CARBON MATERIALS (kgCO2e):\n"
         f"{json.dumps(top_materials, indent=2)}\n\n"
@@ -87,58 +91,52 @@ def build_building_summary(carbon_df, final_df, substitutions, benchmark_result)
 def get_ai_recommendations(
     carbon_df, final_df, substitutions, benchmark_result
 ):
-    summary = build_building_summary(
-        carbon_df, final_df, substitutions, benchmark_result
-    )
+    try:
+        from groq import Groq
 
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        summary = build_building_summary(
+            carbon_df, final_df, substitutions, benchmark_result
+        )
 
-    prompt = (
-        f"You are a sustainability consultant specialising in "
-        f"embodied carbon and circular economy in construction. "
-        f"You are working in Finland and follow EU and Finnish "
-        f"building regulations including EN 15978, EN 15804, and "
-        f"the Finnish Ministry of Environment carbon assessment "
-        f"method 2021.\n\n"
-        f"Below is a sustainability assessment of a building "
-        f"extracted from its IFC model:\n\n"
-        f"{summary}\n\n"
-        f"Based on this specific building data, provide exactly 3 "
-        f"clear, specific and actionable recommendations to reduce "
-        f"embodied carbon and improve circularity. Each "
-        f"recommendation must be directly based on the data "
-        f"provided above.\n\n"
-        f"Format your response exactly like this:\n\n"
-        f"RECOMMENDATION 1: [Short title]\n"
-        f"[2-3 sentences explaining what to do, why it matters "
-        f"for this specific building, and the approximate carbon "
-        f"impact. Reference relevant Finnish or EU standards "
-        f"where appropriate.]\n\n"
-        f"RECOMMENDATION 2: [Short title]\n"
-        f"[2-3 sentences explaining what to do, why it matters "
-        f"for this specific building, and the approximate carbon "
-        f"impact. Reference relevant Finnish or EU standards "
-        f"where appropriate.]\n\n"
-        f"RECOMMENDATION 3: [Short title]\n"
-        f"[2-3 sentences explaining what to do, why it matters "
-        f"for this specific building, and the approximate carbon "
-        f"impact. Reference relevant Finnish or EU standards "
-        f"where appropriate.]\n\n"
-        f"Be specific to the building data. "
-        f"Do not give generic advice. "
-        f"Always reference Finnish or EU standards."
-    )
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-    response = client.chat.completions.create(
-        model=model="llama3-groq-70b-8192-tool-use-preview",,
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        max_tokens=1000,
-        temperature=0.3
-    )
+        prompt = (
+            "You are a sustainability consultant specialising in "
+            "embodied carbon and circular economy in construction. "
+            "You are working in Finland and follow EU and Finnish "
+            "building regulations including EN 15978, EN 15804, "
+            "and the Finnish Ministry of Environment carbon "
+            "assessment method 2021.\n\n"
+            "Below is a sustainability assessment of a building "
+            "extracted from its IFC model:\n\n"
+            f"{summary}\n\n"
+            "Based on this specific building data, provide exactly "
+            "3 clear, specific and actionable recommendations to "
+            "reduce embodied carbon and improve circularity.\n\n"
+            "Format your response exactly like this:\n\n"
+            "RECOMMENDATION 1: [Short title]\n"
+            "[2-3 sentences explaining what to do and why.]\n\n"
+            "RECOMMENDATION 2: [Short title]\n"
+            "[2-3 sentences explaining what to do and why.]\n\n"
+            "RECOMMENDATION 3: [Short title]\n"
+            "[2-3 sentences explaining what to do and why.]\n\n"
+            "Be specific to the building data provided. "
+            "Always reference Finnish or EU standards."
+        )
 
-    return response.choices[0].message.content
+        response = client.chat.completions.create(
+            model="mixtral-8x7b-32768",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            max_tokens=1000,
+            temperature=0.3
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+        return f"AI recommendation error: {str(e)}"
