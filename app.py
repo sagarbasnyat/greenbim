@@ -637,7 +637,7 @@ elif page == "🔥 Embodied Carbon":
                     return "background-color: #FCEBEB"
 
             st.dataframe(
-                quality_df.style.applymap(
+                quality_df.style.map(
                     color_quality,
                     subset=["data_quality"]
                 ),
