@@ -1,0 +1,118 @@
+ifc_name,aliases,mapped_co2data_name,supplier,software,notes
+Rudus C20/25,rudus c20|rudus normal betoni,Ready-mix concrete C20/25,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C25/30,rudus c25|rudus c25/30 xc1,Ready-mix concrete C25/30,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C30/37,rudus c30|rudus c30/37 xf1,Ready-mix concrete C30/37,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C35/45,rudus c35|rudus c35/45 xf2,Ready-mix concrete C35/45,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C40/50,rudus c40|rudus c40/50,Ready-mix concrete C40/50,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C45/55,rudus c45|rudus c45/55,Ready-mix concrete C45/55,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Rudus C50/60,rudus c50|rudus c50/60,Ready-mix concrete C50/60,Rudus Oy,Archicad/Revit,Finnish ready-mix concrete
+Lohja C25/30,lohja c25|lohja betoni c25,Ready-mix concrete C25/30,Lohja Rudus,Archicad/Revit,Finnish ready-mix concrete
+Lohja C30/37,lohja c30|lohja betoni c30,Ready-mix concrete C30/37,Lohja Rudus,Archicad/Revit,Finnish ready-mix concrete
+Lohja C35/45,lohja c35|lohja betoni c35,Ready-mix concrete C35/45,Lohja Rudus,Archicad/Revit,Finnish ready-mix concrete
+NCC Betoni C25/30,ncc c25|ncc betoni,Ready-mix concrete C25/30,NCC Finland,Archicad/Revit,Finnish ready-mix concrete
+NCC Betoni C30/37,ncc c30|ncc betoni c30,Ready-mix concrete C30/37,NCC Finland,Archicad/Revit,Finnish ready-mix concrete
+Betoni C20/25,betoni c20|beton c20,Ready-mix concrete C20/25,Generic Finnish,Archicad,Archicad default Finnish material name
+Betoni C25/30,betoni c25|beton c25,Ready-mix concrete C25/30,Generic Finnish,Archicad,Archicad default Finnish material name
+Betoni C30/37,betoni c30|beton c30,Ready-mix concrete C30/37,Generic Finnish,Archicad,Archicad default Finnish material name
+Betoni C35/45,betoni c35|beton c35,Ready-mix concrete C35/45,Generic Finnish,Archicad,Archicad default Finnish material name
+Betoni C40/50,betoni c40|beton c40,Ready-mix concrete C40/50,Generic Finnish,Archicad,Archicad default Finnish material name
+Betonilaatta C25/30,betonilaatta|concrete slab c25,Ready-mix concrete C25/30,Generic Finnish,Archicad,Finnish slab name
+Teräsbetoni C25/30,teräsbetoni c25|reinforced c25,Ready-mix concrete C25/30,Generic Finnish,Archicad/Tekla,Finnish reinforced concrete
+Teräsbetoni C30/37,teräsbetoni c30|reinforced c30,Ready-mix concrete C30/37,Generic Finnish,Archicad/Tekla,Finnish reinforced concrete
+Teräsbetoni C35/45,teräsbetoni c35|reinforced c35,Ready-mix concrete C35/45,Generic Finnish,Archicad/Tekla,Finnish reinforced concrete
+Teräsbetoni C40/50,teräsbetoni c40|reinforced c40,Ready-mix concrete C40/50,Generic Finnish,Archicad/Tekla,Finnish reinforced concrete
+Ontelolaatta 200,ontelolaatta 200mm|hc 200,Precast concrete hollow core slab 200 mm,Elematic,Tekla,Finnish hollow core slab
+Ontelolaatta 265,ontelolaatta 265mm|hc 265,Precast concrete hollow core slab 265 mm,Elematic,Tekla,Finnish hollow core slab
+Ontelolaatta 320,ontelolaatta 320mm|hc 320,Precast concrete hollow core slab 320 mm,Elematic,Tekla,Finnish hollow core slab
+Ontelolaatta 370,ontelolaatta 370mm|hc 370,Precast concrete hollow core slab 370 mm,Elematic,Tekla,Finnish hollow core slab
+Ontelolaatta 400,ontelolaatta 400mm|hc 400,Precast concrete hollow core slab 400 mm,Elematic,Tekla,Finnish hollow core slab
+Sandwich-elementti 150+220+80,sandwich elementti|julkisivuelementti,Precast concrete sandwich exterior wall 150+220+80 mm,Parma,Tekla,Finnish sandwich element
+Sandwich-elementti 80+220+80,sandwich 80+220|julkisivuelementti ohut,Precast concrete sandwich exterior wall 80+220+80 mm,Parma,Tekla,Finnish sandwich element
+Kuorilaatta,kuorilaatta betoni|shell slab,Precast concrete solid slab element 220 mm,Generic Finnish,Tekla,Finnish shell slab
+Kevytbetoni,kevytbetoni blokki|aac block,Autoclaved aerated concrete block exterior walls,H+H Finland,Archicad/Revit,Finnish AAC block
+Siporex,siporex blokki|ytong finland,Autoclaved aerated concrete block exterior walls,H+H Finland,Archicad,Finnish AAC brand name
+Ytong,ytong blokki|ytong block,Autoclaved aerated concrete block interior walls,H+H Finland,Archicad,Finnish AAC brand name
+SSAB S235,ssab s235j2|teräs s235,Structural steel for load bearing structure,SSAB,Tekla/Revit,Finnish structural steel
+SSAB S275,ssab s275jr|teräs s275,Structural steel for load bearing structure,SSAB,Tekla/Revit,Finnish structural steel
+SSAB S355,ssab s355j2|teräs s355,Structural steel for load bearing structure,SSAB,Tekla/Revit,Finnish structural steel
+SSAB S420,ssab s420|teräs s420,Structural steel for load bearing structure,SSAB,Tekla/Revit,Finnish structural steel
+Ruukki S355,ruukki s355|ruukki teräs s355,Structural steel for load bearing structure,SSAB Ruukki,Tekla/Revit,Finnish structural steel
+Ruukki RHS,ruukki rhs|hollow section rhs,Structural steel for load bearing structure,SSAB Ruukki,Tekla,Finnish hollow section
+Ruukki CHS,ruukki chs|circular hollow section,Structural steel for load bearing structure,SSAB Ruukki,Tekla,Finnish circular hollow section
+Teräs S235,teräs s235|steel s235,Structural steel for load bearing structure,Generic Finnish,Tekla/Archicad,Finnish steel generic
+Teräs S275,teräs s275|steel s275,Structural steel for load bearing structure,Generic Finnish,Tekla/Archicad,Finnish steel generic
+Teräs S355,teräs s355|steel s355,Structural steel for load bearing structure,Generic Finnish,Tekla/Archicad,Finnish steel generic
+Rakenneteräs S355,rakenneteräs|structural steel finland,Structural steel for load bearing structure,Generic Finnish,Tekla,Tekla default Finnish steel
+Harjateräs B500B,harjateräs b500b|rebar b500b,Steel rebar for concrete reinforcement,Celsa/Fundia,Tekla,Finnish rebar
+Harjateräs A500HW,harjateräs a500|rebar a500,Steel rebar for concrete reinforcement,Generic Finnish,Tekla,Finnish rebar standard
+Raudoitus B500,raudoitus b500b|reinforcement b500,Steel rebar for concrete reinforcement,Generic Finnish,Tekla,Finnish reinforcement
+Betoniteräs B500,betoniteräs|concrete steel rebar,Steel rebar for concrete reinforcement,Generic Finnish,Tekla,Finnish rebar name
+Metsä Wood GL24,metsa wood gl24|liimapuu gl24,GLT Glued laminated timber,Metsä Wood,Archicad/Revit,Finnish glulam
+Metsä Wood GL30,metsa wood gl30|liimapuu gl30,GLT Glued laminated timber,Metsä Wood,Archicad/Revit,Finnish glulam
+Metsä Wood GL32,metsa wood gl32|liimapuu gl32,GLT Glued laminated timber,Metsä Wood,Archicad/Revit,Finnish glulam
+Metsä Wood Kerto-S,kerto-s lvl|kerto s beam,LVL laminated veneer lumber for beams posts and panels,Metsä Wood,Archicad/Revit,Finnish LVL beam
+Metsä Wood Kerto-Q,kerto-q lvl|kerto q panel,LVL laminated veneer lumber for beams posts and panels,Metsä Wood,Archicad/Revit,Finnish LVL panel
+Metsä Wood Kerto-T,kerto-t lvl|kerto t wall,LVL laminated veneer lumber for wall studs,Metsä Wood,Archicad/Revit,Finnish LVL wall
+Stora Enso CLT,stora enso clt|ristikkoliimapuu stora,CLT Cross laminated timber,Stora Enso,Archicad/Revit,Finnish CLT
+Stora Enso GL30,stora enso gl30|liimapuu stora gl30,GLT Glued laminated timber,Stora Enso,Archicad/Revit,Finnish glulam
+Versowood GL30,versowood gl30|versowood liimapuu,GLT Glued laminated timber,Versowood,Archicad/Revit,Finnish glulam
+Versowood Sahatavara C24,versowood c24|sahatavara c24,Sawn timber,Versowood,Archicad,Finnish sawn timber
+Liimapuu GL24,liimapuu gl24|glulam gl24,GLT Glued laminated timber,Generic Finnish,Archicad,Finnish glulam generic
+Liimapuu GL30,liimapuu gl30|glulam gl30,GLT Glued laminated timber,Generic Finnish,Archicad,Finnish glulam generic
+Ristikkoliimapuu,ristikkoliimapuu clt|cross laminated timber,CLT Cross laminated timber,Generic Finnish,Archicad,Finnish CLT generic
+Viilupuu LVL,viilupuu lvl|lvl beam finland,LVL laminated veneer lumber for beams posts and panels,Generic Finnish,Archicad,Finnish LVL generic
+Sahatavara C16,sahatavara c16|sawn timber c16,Sawn timber,Generic Finnish,Archicad,Finnish sawn timber
+Sahatavara C24,sahatavara c24|sawn timber c24,Sawn timber,Generic Finnish,Archicad,Finnish sawn timber
+Paroc Extra Plus,paroc extra plus|paroc extra,Stone wool insulation for facades density 61 kg/m3,Paroc,Archicad/Revit,Finnish stone wool facade
+Paroc Pro,paroc pro facade|paroc facade insulation,Stone wool insulation for facades density 61 kg/m3,Paroc,Archicad/Revit,Finnish stone wool facade
+Paroc Roof,paroc roof|paroc katto,Stone wool insulation for roofs density 63 kg/m3,Paroc,Archicad/Revit,Finnish stone wool roof
+Paroc Extra,paroc extra|paroc general,Stone wool low-density for general building insulation average density 30 kg/m3,Paroc,Archicad/Revit,Finnish stone wool general
+Isover KL-33,isover kl33|isover kl,Glass wool insulation density 20 kg/m3,Isover Finland,Archicad/Revit,Finnish glass wool
+Isover KL-36,isover kl36|isover facade,Glass wool insulation density 60 kg/m3,Isover Finland,Archicad/Revit,Finnish glass wool facade
+Isover Facade,isover facade plus|isover julkisivu,Glass wool insulation density 60 kg/m3,Isover Finland,Archicad/Revit,Finnish glass wool facade
+Isover RKL,isover rkl|isover roof,Stone wool insulation for roofs density 63 kg/m3,Isover Finland,Archicad/Revit,Finnish stone wool roof
+Rockwool Facade,rockwool facade|rockwool julkisivu,Stone wool insulation for facades density 61 kg/m3,Rockwool Finland,Archicad/Revit,Finnish stone wool facade
+Rockwool Roof,rockwool roof|rockwool katto,Stone wool insulation for roofs density 63 kg/m3,Rockwool Finland,Archicad/Revit,Finnish stone wool roof
+Mineraalivilla 30,mineraalivilla 30kg|mineral wool 30,Stone wool low-density for general building insulation average density 30 kg/m3,Generic Finnish,Archicad,Finnish mineral wool generic
+Mineraalivilla 50,mineraalivilla 50kg|mineral wool 50,Stone wool insulation for facades density 61 kg/m3,Generic Finnish,Archicad,Finnish mineral wool facade
+Mineraalivilla 100,mineraalivilla 100kg|mineral wool 100,Stone wool insulation for roofs density 63 kg/m3,Generic Finnish,Archicad,Finnish mineral wool roof
+Thermisol EPS 100,thermisol eps|eps 100,EPS insulation,Thermisol,Archicad/Revit,Finnish EPS insulation
+Thermisol EPS 120,thermisol eps 120|eps 120,EPS insulation,Thermisol,Archicad/Revit,Finnish EPS insulation
+Styrox EPS,styrox eps|polystyreeni styrox,EPS insulation,Styrox,Archicad/Revit,Finnish EPS brand
+Finnfoam FL-300,finnfoam fl300|xps fl300,XPS-insulation,Finnfoam,Archicad/Revit,Finnish XPS insulation
+Finnfoam FL-400,finnfoam fl400|xps fl400,XPS-insulation,Finnfoam,Archicad/Revit,Finnish XPS insulation
+Gyproc GN13,gyproc gn13|kipsilevy gn13,Gypsum plasterboard interiors,Gyproc Finland,Archicad/Revit,Finnish standard gypsum
+Gyproc GEK13,gyproc gek13|kosteudenkestävä kipsilevy,Gypsum plasterboard interiors,Gyproc Finland,Archicad/Revit,Finnish moisture resistant gypsum
+Gyproc GF15,gyproc gf15|palonkestävä kipsilevy,Gypsum plasterboard hard fire resistant,Gyproc Finland,Archicad/Revit,Finnish fire resistant gypsum
+Gyproc GTS9,gyproc gts9|tuulensuoja kipsilevy,Gypsum plasterboard wind shield,Gyproc Finland,Archicad/Revit,Finnish wind shield gypsum
+Knauf Kipsikartonki,knauf kipsi|knauf gypsum finland,Gypsum plasterboard interiors,Knauf Finland,Archicad/Revit,Finnish gypsum board
+Kipsilevy 13,kipsilevy 13mm|gypsum board 13,Gypsum plasterboard interiors,Generic Finnish,Archicad,Finnish generic gypsum
+Kipsilevy palo,kipsilevy palonkestävä|fire gypsum board,Gypsum plasterboard hard fire resistant,Generic Finnish,Archicad,Finnish fire gypsum
+Wienerberger Polttotiili,wienerberger tiili|clay brick wienerberger,Brick red,Wienerberger Finland,Archicad/Revit,Finnish clay brick
+Wienerberger Julkisivutiili,wienerberger julkisivu|facing brick wienerberger,Brick red,Wienerberger Finland,Archicad/Revit,Finnish facing brick
+Polttotiili NF,polttotiili nf|clay brick nf,Brick red,Generic Finnish,Archicad,Finnish clay brick standard
+Kalkkihiekkatiili 600,kalkkihiekkatiili 600|calcium silicate 600,Calcium silicate brick,Lohja Rudus,Archicad,Finnish calcium silicate
+Kalkkihiekkatiili 700,kalkkihiekkatiili 700|calcium silicate 700,Calcium silicate brick,Lohja Rudus,Archicad,Finnish calcium silicate
+Float-lasi,float lasi|float glass finland,Float glass,Generic Finnish,Archicad/Revit,Finnish float glass
+Eristyslasi 2-lasi,eristyslasi kaksilasi|double glazed unit,Insulating glass unit,Generic Finnish,Archicad/Revit,Finnish double glazed
+Eristyslasi 3-lasi,eristyslasi kolmilasi|triple glazed unit,Window wood-aluminium triple-glazed,Generic Finnish,Archicad/Revit,Finnish triple glazed
+Alumiiniprofiili,alumiini profiili|aluminium profile finland,Aluminium profile extruded scrap 0%,Generic Finnish,Archicad/Revit,Finnish aluminium profile
+Alumiinilevy,alumiini levy|aluminium sheet finland,Aluminium sheet for walls and ceilings scrap 0%,Generic Finnish,Archicad/Revit,Finnish aluminium sheet
+Kupariputki,kupari putki|copper tube finland,Copper tube,Generic Finnish,Archicad/Revit,Finnish copper tube
+Kuparilevy,kupari levy|copper sheet finland,Copper sheet,Generic Finnish,Archicad/Revit,Finnish copper sheet
+Graniitti,graniitti laatta|granite finland,Natural stone tile for facades and floors,Generic Finnish,Archicad/Revit,Finnish granite
+Luonnonkivi,luonnonkivi laatta|natural stone finland,Natural stone tile for facades and floors,Generic Finnish,Archicad/Revit,Finnish natural stone
+Keraamiset lattialaatat,keraamiset lattia|ceramic floor tile,Ceramic tile for floors,Generic Finnish,Archicad/Revit,Finnish ceramic floor
+Keraamiset seinälaatat,keraamiset seinä|ceramic wall tile,Ceramic tile for walls,Generic Finnish,Archicad/Revit,Finnish ceramic wall
+Bitumikermi TL2,bitumikermi tl2|bitumen membrane tl2,Bitumen waterproofing membrane top layer membrane TL2,Generic Finnish,Archicad/Revit,Finnish bitumen membrane
+Bitumikermi TL1,bitumikermi tl1|bitumen membrane tl1,Bitumen waterproofing membrane single-ply roofing system TL1,Generic Finnish,Archicad/Revit,Finnish bitumen membrane
+Laastikerros,laasti kerros|mortar layer,General mortar,Generic Finnish,Archicad,Finnish mortar layer
+Oikaisutasoite,oikaisu tasoite|plastering mortar,Plastering mortar,Generic Finnish,Archicad,Finnish plastering mortar
+Lattiatasoite,lattia tasoite|floor screed,Screed cement-based,Generic Finnish,Archicad,Finnish floor screed
+Hiekka,hiekka täyttö|sand fill,Gravel and sand,Generic Finnish,Archicad,Finnish sand fill
+Sora,sora täyttö|gravel fill,Gravel and sand,Generic Finnish,Archicad,Finnish gravel fill
+Murske,murske täyttö|crushed rock fill,Crushed rock,Generic Finnish,Archicad,Finnish crushed rock
+Teräspaalut,teräs paalu|steel pile foundation,Steel pile,Generic Finnish,Tekla,Finnish steel pile
+Betonipaalut RTB-300,betonipaalu rtb|concrete pile rtb,Concrete pile RTB-300,Generic Finnish,Tekla,Finnish concrete pile
+Höyrynsulku PE,höyrynsulku|vapour barrier pe,Water vapor barrier PE,Generic Finnish,Archicad/Revit,Finnish vapour barrier
+Geotekstiili,geotekstiili suodatin|geotextile finland,Geotextile PP-based,Generic Finnish,Archicad,Finnish geotextile

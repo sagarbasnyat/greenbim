@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from difflib import get_close_matches
 from core.co2data_api import get_finnish_carbon_value
 
@@ -27,89 +28,207 @@ FINNISH_BENCHMARKS = {
 }
 
 KEYWORD_MAP = {
-    "concrete": "Concrete (C25/30 general)",
-    "beton": "Concrete (C25/30 general)",
-    "betoni": "Concrete (C25/30 general)",
-    "c20": "Concrete (C20/25 general)",
-    "c25": "Concrete (C25/30 general)",
-    "c30": "Concrete (C30/37 general)",
-    "c35": "Concrete (C35/45 general)",
-    "c40": "Concrete (C40/50 high strength)",
-    "c50": "Concrete (C50/60 high strength)",
-    "reinforced": "Concrete (reinforced C30/37 1%)",
-    "teräsbetoni": "Concrete (reinforced C30/37 1%)",
-    "stahlbeton": "Concrete (reinforced C30/37 1%)",
-    "precast": "Concrete (precast element standard)",
-    "elementti": "Concrete (precast element standard)",
-    "ontelolaatta": "Concrete (precast hollow core slab)",
-    "hollow core": "Concrete (precast hollow core slab)",
-    "sandwich": "Concrete (precast sandwich element)",
-    "ggbs": "Concrete (low carbon 50% GGBS)",
-    "aac": "Concrete (AAC autoclaved aerated)",
-    "ytong": "Concrete (AAC autoclaved aerated)",
-    "steel": "Steel (structural section S355)",
-    "teräs": "Steel (structural section S355)",
-    "s355": "Steel (structural section S355)",
-    "hea": "Steel (hot rolled HEA HEB)",
-    "rhs": "Steel (hollow section RHS CHS)",
-    "rebar": "Steel (rebar B500B)",
-    "harjateräs": "Steel (rebar B500B)",
-    "b500": "Steel (rebar B500B)",
-    "timber": "Timber (softwood sawn C24)",
-    "wood": "Timber (softwood sawn C24)",
-    "puu": "Timber (softwood sawn C24)",
-    "sahatavara": "Timber (softwood sawn C24)",
-    "glulam": "Timber (glulam GL30)",
-    "liimapuu": "Timber (glulam GL30)",
-    "gl30": "Timber (glulam GL30)",
-    "clt": "Timber (CLT cross laminated)",
-    "lvl": "Timber (LVL Kerto)",
-    "kerto": "Timber (LVL Kerto)",
-    "plywood": "Plywood (spruce)",
-    "osb": "OSB board",
-    "mineral wool": "Insulation (mineral wool 30kg)",
-    "mineraalivilla": "Insulation (mineral wool 30kg)",
-    "paroc": "Insulation (mineral wool 50kg)",
-    "isover": "Insulation (mineral wool 30kg)",
-    "rockwool": "Insulation (mineral wool 50kg)",
-    "villa": "Insulation (mineral wool 30kg)",
-    "eps": "Insulation (EPS expanded)",
-    "polystyrene": "Insulation (EPS expanded)",
-    "styrox": "Insulation (EPS expanded)",
-    "xps": "Insulation (XPS extruded)",
-    "finnfoam": "Insulation (XPS extruded)",
-    "wood fibre": "Insulation (wood fibre)",
-    "cellulose": "Insulation (cellulose)",
-    "gypsum": "Gypsum board (standard 13mm)",
-    "kipsilevy": "Gypsum board (standard 13mm)",
-    "gyproc": "Gypsum board (standard 13mm)",
-    "plasterboard": "Gypsum board (standard 13mm)",
-    "brick": "Brick (clay fired standard)",
-    "tiili": "Brick (clay fired standard)",
-    "calcium silicate": "Brick (calcium silicate)",
-    "glass": "Glass (float general)",
-    "lasi": "Glass (float general)",
-    "glazing": "Glass (double glazed unit)",
-    "aluminium": "Aluminium (primary extrusion)",
-    "aluminum": "Aluminium (primary extrusion)",
-    "alumiini": "Aluminium (primary extrusion)",
-    "copper": "Copper (general)",
-    "kupari": "Copper (general)",
-    "granite": "Stone (granite)",
-    "graniitti": "Stone (granite)",
-    "stone": "Stone (granite)",
-    "kivi": "Stone (granite)",
-    "ceramic": "Ceramic tiles (floor)",
-    "laatta": "Ceramic tiles (floor)",
-    "bitumen": "Bitumen membrane (roofing)",
-    "bituumi": "Bitumen membrane (roofing)",
-    "sand": "Sand (fill)",
-    "hiekka": "Sand (fill)",
-    "gravel": "Gravel (fill)",
-    "sora": "Gravel (fill)",
-    "mortar": "Mortar (general)",
-    "laasti": "Mortar (general)",
-    "screed": "Screed (cement based)",
+    "concrete": "Ready-mix concrete, C25/30",
+    "beton": "Ready-mix concrete, C25/30",
+    "betoni": "Ready-mix concrete, C25/30",
+    "c20": "Ready-mix concrete, C20/25",
+    "c25": "Ready-mix concrete, C25/30",
+    "c30": "Ready-mix concrete, C30/37",
+    "c35": "Ready-mix concrete, C35/45",
+    "c40": "Ready-mix concrete, C40/50",
+    "c45": "Ready-mix concrete, C45/55",
+    "c50": "Ready-mix concrete, C50/60",
+    "reinforced concrete": "Ready-mix concrete, C30/37",
+    "teräsbetoni": "Ready-mix concrete, C30/37",
+    "stahlbeton": "Ready-mix concrete, C30/37",
+    "precast": "Precast concrete, hollow core slab 265 mm",
+    "elementti": "Precast concrete, hollow core slab 265 mm",
+    "ontelolaatta": "Precast concrete, hollow core slab 265 mm",
+    "hollow core": "Precast concrete, hollow core slab 265 mm",
+    "sandwich": "Precast concrete, sandwich, exterior wall 150+220+80 mm",
+    "aac": "Autoclaved aerated concrete block, exterior walls",
+    "ytong": "Autoclaved aerated concrete block, exterior walls",
+    "siporex": "Autoclaved aerated concrete block, exterior walls",
+    "kevytbetoni": "Autoclaved aerated concrete block, exterior walls",
+    "structural steel": "Structural steel for load bearing structure",
+    "steel": "Structural steel for load bearing structure",
+    "teräs": "Structural steel for load bearing structure",
+    "stahl": "Structural steel for load bearing structure",
+    "s235": "Structural steel for load bearing structure",
+    "s275": "Structural steel for load bearing structure",
+    "s355": "Structural steel for load bearing structure",
+    "s420": "Structural steel for load bearing structure",
+    "hea": "Structural steel for load bearing structure",
+    "heb": "Structural steel for load bearing structure",
+    "rhs": "Structural steel for load bearing structure",
+    "chs": "Structural steel for load bearing structure",
+    "steel profile": "Steel profile, 100 % scrap-based",
+    "recycled steel": "Steel profile, 100 % scrap-based",
+    "eaf": "Steel profile, 100 % scrap-based",
+    "steel pile": "Steel pile",
+    "teräspaalu": "Steel pile",
+    "rebar": "Steel rebar for concrete reinforcement",
+    "reinforcement": "Steel rebar for concrete reinforcement",
+    "harjateräs": "Steel rebar for concrete reinforcement",
+    "raudoitus": "Steel rebar for concrete reinforcement",
+    "betoniteräs": "Steel rebar for concrete reinforcement",
+    "b500": "Steel rebar for concrete reinforcement",
+    "a500": "Steel rebar for concrete reinforcement",
+    "stainless steel": "Stainless steel sheet",
+    "stainless rebar": "Stainless steel rebar",
+    "glulam": "GLT, Glued laminated timber",
+    "glt": "GLT, Glued laminated timber",
+    "liimapuu": "GLT, Glued laminated timber",
+    "bsh": "GLT, Glued laminated timber",
+    "gl24": "GLT, Glued laminated timber",
+    "gl30": "GLT, Glued laminated timber",
+    "clt": "CLT, Cross laminated timber",
+    "cross laminated": "CLT, Cross laminated timber",
+    "ristikkoliimapuu": "CLT, Cross laminated timber",
+    "lvl beam": "LVL, laminated veneer lumber for beams, posts, and panels",
+    "lvl wall": "LVL, laminated veneer lumber for wall studs",
+    "lvl": "LVL, laminated veneer lumber for beams, posts, and panels",
+    "kerto": "LVL, laminated veneer lumber for beams, posts, and panels",
+    "viilupuu": "LVL, laminated veneer lumber for beams, posts, and panels",
+    "sawn timber": "Sawn timber",
+    "sahatavara": "Sawn timber",
+    "timber": "Sawn timber",
+    "wood": "Sawn timber",
+    "puu": "Sawn timber",
+    "holz": "Sawn timber",
+    "softwood": "Sawn timber",
+    "pine": "Sawn timber",
+    "spruce": "Sawn timber",
+    "kuusi": "Sawn timber",
+    "mänty": "Sawn timber",
+    "plywood spruce": "Plywood, spruce, uncoated",
+    "plywood birch": "Plywood, birch, uncoated",
+    "plywood": "Plywood, spruce, uncoated",
+    "vaneri": "Plywood, spruce, uncoated",
+    "osb": "OSB panel",
+    "chipboard": "Chipboard",
+    "mdf": "Fibreboard, medium density, mdf",
+    "mineral wool 20": "Glass wool insulation, density 20 kg/m3",
+    "mineral wool 60": "Glass wool insulation, density 60 kg/m3",
+    "mineral wool 100": "Glass wool insulation, density 100 kg/m3",
+    "glass wool": "Glass wool insulation, density 20 kg/m3",
+    "lasivillalevy": "Glass wool insulation, density 20 kg/m3",
+    "stone wool facade": "Stone wool insulation for facades, density 61 kg/m3",
+    "stone wool roof": "Stone wool insulation for roofs, density 63 kg/m3",
+    "stone wool": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "kivivilla": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "rockwool": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "paroc": "Stone wool insulation for facades, density 61 kg/m3",
+    "isover": "Glass wool insulation, density 20 kg/m3",
+    "mineral wool": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "mineraalivilla": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "villa": "Stone wool, low-density for general building insulation, average density 30 kg/m3",
+    "eps": "EPS insulation",
+    "polystyrene": "EPS insulation",
+    "polystyreeni": "EPS insulation",
+    "styrox": "EPS insulation",
+    "thermisol": "EPS insulation",
+    "xps": "XPS-insulation",
+    "finnfoam": "XPS-insulation",
+    "pu insulation": "PU-insulation",
+    "pur": "PU-insulation",
+    "pir": "Phenolic insulation, aluminum foil coating, 40-200mm",
+    "cellulose board": "Cellulose insulation board",
+    "cellulose loose": "Cellulose insulation, loose-fill",
+    "cellulose": "Cellulose insulation board",
+    "puukuitu": "Cellulose insulation board",
+    "wood fibre": "Cellulose insulation board",
+    "gypsum fire": "Gypsum plasterboard, hard, fire resistant",
+    "gypsum wind": "Gypsum plasterboard, wind shield",
+    "gypsum plasterboard": "Gypsum plasterboard, interiors",
+    "gypsum board": "Gypsum plasterboard, interiors",
+    "plasterboard": "Gypsum plasterboard, interiors",
+    "kipsilevy": "Gypsum plasterboard, interiors",
+    "gyproc": "Gypsum plasterboard, interiors",
+    "knauf": "Gypsum plasterboard, interiors",
+    "drywall": "Gypsum plasterboard, interiors",
+    "gypsum": "Gypsum plasterboard, interiors",
+    "kipsi": "Gypsum plasterboard, interiors",
+    "plastering mortar": "Plastering mortar",
+    "masonry mortar": "Masonry mortar",
+    "general mortar": "General mortar",
+    "mortar": "General mortar",
+    "laasti": "General mortar",
+    "screed": "Screed, cement-based",
+    "tasoitus": "Screed, cement-based",
+    "brick red": "Brick, red",
+    "clay brick": "Brick, red",
+    "brick": "Brick, red",
+    "tiili": "Brick, red",
+    "polttotiili": "Brick, red",
+    "wienerberger": "Brick, red",
+    "light brick": "Brick, light",
+    "kevyttiili": "Brick, light",
+    "calcium silicate": "Calcium silicate brick",
+    "kalkkihiekkatiili": "Calcium silicate brick",
+    "float glass": "Float glass",
+    "glass": "Float glass",
+    "lasi": "Float glass",
+    "glazing": "Insulating glass unit",
+    "insulating glass": "Insulating glass unit",
+    "eristyslasi": "Insulating glass unit",
+    "triple glazed": "Window, wood-aluminium, triple-glazed",
+    "kolmilasi": "Window, wood-aluminium, triple-glazed",
+    "coated glass": "Coated glass",
+    "laminated glass": "Laminated glass",
+    "toughened glass": "Thermally toughened glass",
+    "aluminium profile": "Aluminium profile, -tube or -rod, extruded, scrap 0%",
+    "aluminium sheet": "Aluminium sheet for walls and ceilings, scrap 0%",
+    "aluminium recycled": "Aluminium profile, scrap 100%",
+    "aluminium": "Aluminium profile, -tube or -rod, extruded, scrap 0%",
+    "aluminum": "Aluminium profile, -tube or -rod, extruded, scrap 0%",
+    "alumiini": "Aluminium profile, -tube or -rod, extruded, scrap 0%",
+    "alu": "Aluminium profile, -tube or -rod, extruded, scrap 0%",
+    "copper sheet": "Copper sheet",
+    "copper tube": "Copper tube",
+    "copper": "Copper sheet",
+    "kupari": "Copper sheet",
+    "fibre cement": "Fibre cement board",
+    "ceramic floor": "Ceramic tile for floors",
+    "ceramic wall": "Ceramic tile for walls",
+    "ceramic": "Ceramic tile for floors",
+    "laatta": "Ceramic tile for floors",
+    "tile": "Ceramic tile for floors",
+    "parquet": "Flooring, parquet",
+    "vinyl flooring": "Vinyl flooring",
+    "bitumen membrane": "Bitumen waterproofing membrane, top layer membrane, TL2",
+    "bitumen": "Bitumen waterproofing membrane, top layer membrane, TL2",
+    "bituumi": "Bitumen waterproofing membrane, top layer membrane, TL2",
+    "bitumikermi": "Bitumen waterproofing membrane, top layer membrane, TL2",
+    "gravel": "Gravel and sand",
+    "sand": "Gravel and sand",
+    "hiekka": "Gravel and sand",
+    "sora": "Gravel and sand",
+    "crushed rock": "Crushed rock",
+    "murske": "Crushed rock",
+    "crushed concrete": "Crushed concrete",
+    "fly ash": "Fly ash",
+    "lentotuhka": "Fly ash",
+    "natural stone": "Natural stone, tile for facades and floors",
+    "granite": "Natural stone, tile for facades and floors",
+    "graniitti": "Natural stone, tile for facades and floors",
+    "luonnonkivi": "Natural stone, tile for facades and floors",
+    "slate": "Natural stone, slate for facades and yard",
+    "concrete pile": "Concrete pile RTB-300",
+    "betonipaalut": "Concrete pile RTB-300",
+    "concrete block": "Concrete block, insulated, U=0.17 W/m2K",
+    "concrete paving": "Concrete paving block",
+    "sandwich panel steel": "Sandwich panel, steel, mineral wool insulation",
+    "color coated steel": "Color coated steel sheet profile",
+    "profiled sheet": "Color coated steel sheet profile",
+    "geotextile": "Geotextile, PP-based",
+    "geotekstiili": "Geotextile, PP-based",
+    "höyrynsulku": "Water vapor barrier, PE",
+    "vapour barrier": "Water vapor barrier, PE",
+    "solar panel": "Solar panel, monocrystalline",
+    "aurinkopaneeli": "Solar panel, monocrystalline",
+    "paint": "Paint, acrylic, water-borne for interior use",
+    "maali": "Paint, acrylic, water-borne for interior use",
 }
 
 FALLBACK_DENSITIES = {
@@ -128,6 +247,7 @@ FALLBACK_DENSITIES = {
 }
 
 _carbon_db = None
+_finnish_db = None
 
 
 def load_carbon_db(db_path="data/carbon_db.csv"):
@@ -141,6 +261,17 @@ def load_carbon_db(db_path="data/carbon_db.csv"):
     return _carbon_db
 
 
+def load_finnish_db(db_path="data/finnish_materials.csv"):
+    global _finnish_db
+    if _finnish_db is not None:
+        return _finnish_db
+    try:
+        _finnish_db = pd.read_csv(db_path)
+    except Exception:
+        _finnish_db = pd.DataFrame()
+    return _finnish_db
+
+
 def get_fallback_density(material_name):
     name_lower = material_name.lower()
     for keyword, density in FALLBACK_DENSITIES.items():
@@ -149,8 +280,23 @@ def get_fallback_density(material_name):
     return FALLBACK_DENSITIES["default"]
 
 
+def match_finnish_library(material_name, finnish_db):
+    if finnish_db is None or finnish_db.empty:
+        return None
+    name_lower = material_name.lower().strip()
+    for _, row in finnish_db.iterrows():
+        ifc_name = str(row.get("ifc_name", "")).lower()
+        aliases = str(row.get("aliases", "")).lower()
+        all_terms = ifc_name + "," + aliases
+        for term in all_terms.split(","):
+            term = term.strip()
+            if len(term) > 2 and term in name_lower:
+                return str(row.get("mapped_co2data_name", ""))
+    return None
+
+
 def match_csv_material(material_name, db):
-    if db.empty:
+    if db is None or db.empty:
         return None
     name_lower = material_name.lower().strip()
 
@@ -192,16 +338,32 @@ def match_csv_material(material_name, db):
 
 
 def calculate_carbon(
-    ifc_df, db_path="data/carbon_db.csv"
+    ifc_df,
+    db_path="data/carbon_db.csv",
+    finnish_db_path="data/finnish_materials.csv"
 ):
     carbon_db = load_carbon_db(db_path)
+    finnish_db = load_finnish_db(finnish_db_path)
     results = []
 
     for _, row in ifc_df.iterrows():
         material_name = str(row["material"])
         volume = row["volume_m3"]
 
-        finnish_data = get_finnish_carbon_value(material_name)
+        # Step 1 — Finnish supplier library
+        finnish_mapped = match_finnish_library(
+            material_name, finnish_db
+        )
+
+        # Step 2 — co2data.fi live API
+        if finnish_mapped:
+            finnish_data = get_finnish_carbon_value(
+                finnish_mapped
+            )
+        else:
+            finnish_data = get_finnish_carbon_value(
+                material_name
+            )
 
         if finnish_data:
             density = finnish_data.get("density_kg_m3")
@@ -213,7 +375,9 @@ def calculate_carbon(
 
             results.append({
                 **row.to_dict(),
-                "matched_material": finnish_data["material_name"],
+                "matched_material": finnish_data[
+                    "material_name"
+                ],
                 "density_kg_m3": density,
                 "mass_kg": round(mass, 2),
                 "ec_factor": ec_factor,
@@ -225,20 +389,29 @@ def calculate_carbon(
             })
 
         else:
+            # Step 3 — CSV fallback
             csv_match = match_csv_material(
                 material_name, carbon_db
             )
 
             if csv_match is not None:
                 mass = volume * csv_match["density_kg_m3"]
-                carbon = mass * csv_match["ec_kg_co2e_per_kg"]
+                carbon = (
+                    mass * csv_match["ec_kg_co2e_per_kg"]
+                )
 
                 results.append({
                     **row.to_dict(),
-                    "matched_material": csv_match["material_name"],
-                    "density_kg_m3": csv_match["density_kg_m3"],
+                    "matched_material": csv_match[
+                        "material_name"
+                    ],
+                    "density_kg_m3": csv_match[
+                        "density_kg_m3"
+                    ],
                     "mass_kg": round(mass, 2),
-                    "ec_factor": csv_match["ec_kg_co2e_per_kg"],
+                    "ec_factor": csv_match[
+                        "ec_kg_co2e_per_kg"
+                    ],
                     "carbon_kg_co2e": round(carbon, 2),
                     "source": csv_match["source"],
                     "stage": csv_match["stage"],
@@ -247,6 +420,7 @@ def calculate_carbon(
                 })
 
             else:
+                # Step 4 — No match
                 results.append({
                     **row.to_dict(),
                     "matched_material": "Unknown",
