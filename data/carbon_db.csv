@@ -1,0 +1,31 @@
+material_name,density_kg_m3,ec_kg_co2e_per_kg,ec_kg_co2e_per_m3,source,stage
+Concrete (general C25/30),2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Concrete (reinforced C30/37 1%),2500,0.188,470.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (reinforced C35/45 2%),2600,0.208,540.8,EN 15804 / Ökobaudat,A1-A3
+Concrete (low carbon 50% GGBS),2400,0.080,192.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (precast element),2500,0.172,430.0,EN 15804 / Ökobaudat,A1-A3
+Steel (structural section S355),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel (rebar B500B),7850,0.770,6044.5,EN 15804 / Ökobaudat,A1-A3
+Steel (recycled EAF route),7850,0.510,4003.5,EN 15804 / Ökobaudat,A1-A3
+Steel (hot rolled section),7850,1.480,11618.0,EN 15804 / Ökobaudat,A1-A3
+Timber (glulam GL30),500,0.390,195.0,EN 15804 / Ökobaudat,A1-A3
+Timber (CLT cross laminated),500,0.276,138.0,EN 15804 / Ökobaudat,A1-A3
+Timber (softwood sawn),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (LVL laminated veneer),530,0.310,164.3,EN 15804 / Ökobaudat,A1-A3
+Brick (clay fired),1700,0.240,408.0,EN 15804 / Ökobaudat,A1-A3
+Brick (calcium silicate),1800,0.190,342.0,EN 15804 / Ökobaudat,A1-A3
+Glass (float general),2500,0.850,2125.0,EN 15804 / Ökobaudat,A1-A3
+Glass (triple glazed unit),2500,0.780,1950.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (general primary),2700,6.700,18090.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (recycled secondary),2700,0.680,1836.0,EN 15804 / Ökobaudat,A1-A3
+Insulation (EPS expanded),25,3.290,82.25,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (wood fibre),50,0.420,21.0,EN 15804 / Ökobaudat,A1-A3
+Insulation (cellulose),50,0.250,12.5,EN 15804 / Ökobaudat,A1-A3
+Gypsum board (standard),950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum board (recycled),950,0.210,199.5,EN 15804 / Ökobaudat,A1-A3
+Copper (general),8900,2.710,24119.0,EN 15804 / Ökobaudat,A1-A3
+Stone (granite),2600,0.130,338.0,EN 15804 / Ökobaudat,A1-A3
+Stone (limestone),2200,0.090,198.0,EN 15804 / Ökobaudat,A1-A3
+Ceramic tiles,2000,0.720,1440.0,EN 15804 / Ökobaudat,A1-A3
+Polystyrene (XPS),35,3.500,122.5,EN 15804 / Ökobaudat,A1-A3

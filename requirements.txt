@@ -1,0 +1,7 @@
+streamlit
+ifcopenshell
+pandas
+plotly
+reportlab
+anthropic
+python-dotenv
