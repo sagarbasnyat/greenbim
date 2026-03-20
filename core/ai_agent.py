@@ -1,6 +1,6 @@
-import anthropic
 import json
 import os
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -92,7 +92,7 @@ def get_ai_recommendations(carbon_df, final_df, substitutions, benchmark_result)
         carbon_df, final_df, substitutions, benchmark_result
     )
 
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
     prompt = f"""
 You are a sustainability consultant specialising in embodied carbon 
@@ -132,12 +132,28 @@ Be specific to the building data. Do not give generic advice.
 Always reference Finnish or EU standards.
 """
 
-    message = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=1000,
+    response = client.chat.completions.create(
+        model="llama3-70b-8192",
         messages=[
-            {"role": "user", "content": prompt}
-        ]
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        max_tokens=1000,
+        temperature=0.3
     )
 
-    return message.content[0].text
+    return response.choices[0].message.content
+```
+
+Press **Cmd + S** to save.
+
+---
+
+## Step 7 — Update Streamlit Cloud Secrets
+
+Go to your Streamlit Cloud dashboard. Find your app and click **Settings** then **Secrets**. Update it to:
+```
+ANTHROPIC_API_KEY = "your-anthropic-key"
+GROQ_API_KEY = "your-groq-key-here"

@@ -5,3 +5,4 @@ plotly
 reportlab
 anthropic
 python-dotenv
+groq
