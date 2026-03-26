@@ -6,8 +6,10 @@ import tempfile
 import os
 from dotenv import load_dotenv
 
-from core.ifc_parser import parse_ifc, get_summary
-from core.carbon_calc import calculate_carbon, get_hotspots, get_carbon_by_storey, get_carbon_by_type, get_benchmark_result, FINNISH_BENCHMARKS
+from core.ifc_parser import parse_ifc, get_summary, get_quality_report
+import core.ifc_parser as _ifc_parser
+from core.carbon_calc import calculate_carbon, get_hotspots, get_carbon_by_storey, get_carbon_by_type, get_benchmark_result, FINNISH_BENCHMARKS, match_csv_material, load_carbon_db, get_fallback_density
+from core.co2data_api import get_finnish_carbon_value
 from core.circularity import calculate_circularity, get_building_circularity_grade, get_circularity_by_material, get_low_circularity_flags
 from core.substitution import get_substitution_suggestions
 from core.ai_agent import get_ai_recommendations
@@ -124,6 +126,12 @@ if "substitutions" not in st.session_state:
     st.session_state.substitutions = None
 if "ai_recommendations" not in st.session_state:
     st.session_state.ai_recommendations = None
+if "manual_overrides" not in st.session_state:
+    st.session_state.manual_overrides = {}
+if "floor_area_auto" not in st.session_state:
+    st.session_state.floor_area_auto = None
+if "floor_area_auto_method" not in st.session_state:
+    st.session_state.floor_area_auto_method = None
 if "project_name" not in st.session_state:
     st.session_state.project_name = "My Building"
 if "project_location" not in st.session_state:
@@ -166,6 +174,16 @@ if page == "🏠 Home & Upload":
             max_value=500000,
             value=st.session_state.floor_area
         )
+        if st.session_state.floor_area_auto is not None:
+            st.success(
+                f"Floor area detected from IFC model: "
+                f"**{st.session_state.floor_area_auto} m²** — "
+                f"you can adjust this value if needed."
+            )
+            st.caption(
+                f"Detection method: "
+                f"{st.session_state.floor_area_auto_method}"
+            )
 
     with col2:
         st.subheader("Upload IFC File")
@@ -193,6 +211,22 @@ if page == "🏠 Home & Upload":
                     f"IFC file parsed successfully. "
                     f"{len(st.session_state.ifc_df)} elements found."
                 )
+                detected_area, detected_method = (
+                    _ifc_parser.DETECTED_FLOOR_AREA
+                )
+                if detected_area is not None:
+                    st.session_state.floor_area_auto = (
+                        detected_area
+                    )
+                    st.session_state.floor_area_auto_method = (
+                        detected_method
+                    )
+                    st.session_state.floor_area = int(
+                        detected_area
+                    )
+                else:
+                    st.session_state.floor_area_auto = None
+                    st.session_state.floor_area_auto_method = None
             except Exception as e:
                 st.error(f"Error parsing IFC file: {e}")
                 st.session_state.ifc_df = None
@@ -341,8 +375,39 @@ elif page == "📦 IFC Parser":
         )
         c4.metric("Missing Volumes", summary["missing_volume"])
 
-        tab1, tab2, tab3 = st.tabs(
-            ["All Elements", "By Type", "Missing Data Flags"]
+        if "confidence" in df.columns:
+            high = int((df["confidence"] == "High").sum())
+            medium = int((df["confidence"] == "Medium").sum())
+            low = int((df["confidence"] == "Low").sum())
+            none_conf = int(
+                (df["confidence"] == "None").sum()
+            )
+            st.markdown("**Material Detection Confidence**")
+            c5, c6, c7, c8 = st.columns(4)
+            c5.metric(
+                "High Confidence",
+                str(high),
+                "Direct IFC association"
+            )
+            c6.metric(
+                "Medium Confidence",
+                str(medium),
+                "Regex or property match"
+            )
+            c7.metric(
+                "Low Confidence",
+                str(low),
+                "Name or type hint"
+            )
+            c8.metric(
+                "Not Detected",
+                str(none_conf),
+                "Manual review needed"
+            )
+
+        tab1, tab2, tab3, tab4 = st.tabs(
+            ["All Elements", "By Type",
+             "Missing Data Flags", "Quality Check"]
         )
 
         with tab1:
@@ -411,6 +476,247 @@ elif page == "📦 IFC Parser":
                     missing_storey, use_container_width=True
                 )
 
+        # ── Quality Check tab ─────────────────────────────────
+        with tab4:
+            qr = get_quality_report(df)
+            score = qr["quality_score"]
+
+            # ── Score gauge ───────────────────────────────────
+            if score >= 80:
+                gauge_color = "#1D9E75"
+                score_label = "Good quality"
+                score_bg    = "#EAF3DE"
+                score_fg    = "#3B6D11"
+            elif score >= 60:
+                gauge_color = "#EF9F27"
+                score_label = "Needs improvement"
+                score_bg    = "#FAEEDA"
+                score_fg    = "#854F0B"
+            else:
+                gauge_color = "#D85A30"
+                score_label = "Poor quality"
+                score_bg    = "#FCEBEB"
+                score_fg    = "#A32D2D"
+
+            fig_gauge = go.Figure(go.Indicator(
+                mode="gauge+number",
+                value=score,
+                title={"text": f"IFC Quality Score — {score_label}",
+                       "font": {"size": 18}},
+                number={"suffix": "/100",
+                        "font": {"size": 36, "color": gauge_color}},
+                gauge={
+                    "axis": {"range": [0, 100],
+                             "tickwidth": 1,
+                             "tickcolor": "#888"},
+                    "bar": {"color": gauge_color},
+                    "bgcolor": "white",
+                    "borderwidth": 1,
+                    "bordercolor": "#ccc",
+                    "steps": [
+                        {"range": [0,  60], "color": "#FCEBEB"},
+                        {"range": [60, 80], "color": "#FAEEDA"},
+                        {"range": [80, 100], "color": "#EAF3DE"},
+                    ],
+                    "threshold": {
+                        "line": {"color": gauge_color, "width": 4},
+                        "thickness": 0.75,
+                        "value": score,
+                    },
+                },
+            ))
+            fig_gauge.update_layout(
+                height=280,
+                margin=dict(t=60, b=10, l=30, r=30),
+                paper_bgcolor="white",
+            )
+            st.plotly_chart(fig_gauge, use_container_width=True)
+
+            st.markdown("---")
+
+            # ── Three-column assessment ───────────────────────
+            mm  = qr["missing_materials"]
+            mv  = qr["missing_volumes"]
+            ms  = qr["missing_storeys"]
+            mat = qr["matched_materials"]
+
+            good_items    = []
+            warning_items = []
+            missing_items = []
+
+            if mat["pct"] >= 80:
+                good_items.append(
+                    f"{mat['count']} elements have materials "
+                    f"({mat['pct']:.0f}%)"
+                )
+            if mv["count"] == 0:
+                good_items.append("All elements have volume data")
+            if ms["count"] == 0:
+                good_items.append(
+                    "All elements assigned to a storey"
+                )
+            if score >= 80:
+                good_items.append(
+                    "IFC file is ready for carbon assessment"
+                )
+
+            if 0 < mm["count"] <= mm["count"] * 0.3 + 1:
+                warning_items.append(
+                    f"{mm['count']} elements missing material "
+                    f"({mm['pct']:.0f}%)"
+                )
+            if 0 < mv["count"]:
+                warning_items.append(
+                    f"{mv['count']} elements missing volume "
+                    f"({mv['pct']:.0f}%)"
+                )
+            if 0 < ms["count"]:
+                warning_items.append(
+                    f"{ms['count']} elements missing storey "
+                    f"({ms['pct']:.0f}%)"
+                )
+
+            if mm["pct"] > 30:
+                missing_items.append(
+                    f"{mm['count']} elements have no material "
+                    f"— assign in BIM model"
+                )
+            if mv["pct"] > 30:
+                missing_items.append(
+                    f"{mv['count']} elements have no volume "
+                    f"— enable base quantities export"
+                )
+            if qr["defaulted_elements"] > 0:
+                missing_items.append(
+                    f"{qr['defaulted_elements']} elements used "
+                    f"type-based defaults — verify in BIM model"
+                )
+
+            if not good_items:
+                good_items.append(
+                    "Upload a well-configured IFC for green flags"
+                )
+
+            col_g, col_w, col_r = st.columns(3)
+
+            with col_g:
+                st.markdown("**What is good**")
+                for item in good_items:
+                    st.success(f"✔ {item}")
+
+            with col_w:
+                st.markdown("**What needs fixing**")
+                if warning_items:
+                    for item in warning_items:
+                        st.warning(f"⚠ {item}")
+                else:
+                    st.info("No warnings")
+
+            with col_r:
+                st.markdown("**What is missing**")
+                if missing_items:
+                    for item in missing_items:
+                        st.error(f"✖ {item}")
+                else:
+                    st.success("✔ Nothing critical missing")
+
+            # ── Top issues ────────────────────────────────────
+            if qr["top_issues"]:
+                st.markdown("---")
+                st.markdown("**Top issues detected**")
+                for issue in qr["top_issues"]:
+                    st.markdown(f"- {issue}")
+
+            # ── Element type breakdown ────────────────────────
+            if qr["element_type_breakdown"]:
+                st.markdown("---")
+                st.markdown(
+                    "**Missing materials by element type**"
+                )
+                breakdown_df = pd.DataFrame(
+                    list(qr["element_type_breakdown"].items()),
+                    columns=["Element Type", "Missing Materials"]
+                ).sort_values(
+                    "Missing Materials", ascending=False
+                )
+                fig_bd = px.bar(
+                    breakdown_df,
+                    x="Element Type",
+                    y="Missing Materials",
+                    color="Missing Materials",
+                    color_continuous_scale="Reds",
+                    title="Elements with Missing Material by Type"
+                )
+                st.plotly_chart(fig_bd, use_container_width=True)
+
+            # ── Software hint ─────────────────────────────────
+            hint = qr["software_hint"]
+            if hint != "Unknown":
+                st.markdown("---")
+                st.info(
+                    f"Detected authoring software: **{hint}**"
+                )
+
+            # ── How to fix section ────────────────────────────
+            st.markdown("---")
+            st.markdown("### HOW TO FIX YOUR IFC FILE")
+            st.markdown(
+                "Expand the section for your authoring software "
+                "and follow the steps to improve data quality."
+            )
+
+            with st.expander(
+                "🔧 Archicad — step by step",
+                expanded=(hint == "Archicad")
+            ):
+                st.markdown(
+                    "1. Go to **File → Save As → IFC** "
+                    "(Merged format IFC)\n"
+                    "2. In **IFC Translation Setup** check "
+                    "**Export Base Quantities**\n"
+                    "3. In **Element Properties** assign "
+                    "Building Materials using standard Finnish "
+                    "supplier names\n"
+                    "4. Recommended names: `Rudus C25/30`, "
+                    "`Paroc Extra`, `SSAB S355`, "
+                    "`Metsä Wood GLT`, `Gyproc GN13`\n"
+                    "5. Re-export and upload again"
+                )
+
+            with st.expander(
+                "🔧 Revit — step by step",
+                expanded=(hint == "Revit")
+            ):
+                st.markdown(
+                    "1. Go to **File → Export → IFC**\n"
+                    "2. In **IFC Export Settings** select "
+                    "**Export element quantities**\n"
+                    "3. Check **Export base quantities**\n"
+                    "4. In **Materials** assign standard Finnish "
+                    "supplier names\n"
+                    "5. Recommended names: `Rudus C25/30`, "
+                    "`Paroc Extra`, `SSAB S355`, "
+                    "`Metsä Wood GLT`, `Gyproc GN13`\n"
+                    "6. Re-export and upload again"
+                )
+
+            with st.expander(
+                "🔧 Tekla Structures — step by step",
+                expanded=(hint == "Tekla Structures")
+            ):
+                st.markdown(
+                    "1. Go to **File → Export → IFC**\n"
+                    "2. In the **IFC Export** dialog check "
+                    "**Export quantities**\n"
+                    "3. Assign standard material names in "
+                    "**Material Catalogue**\n"
+                    "4. Use Finnish supplier names: "
+                    "`Rudus C25/30`, `Paroc Extra`, "
+                    "`SSAB S355`, `Metsä Wood GLT`, "
+                    "`Gyproc GN13`\n"
+                    "5. Re-export and upload again"
+                )
+
 
 # ============================================================
 # PAGE 3 - EMBODIED CARBON
@@ -440,6 +746,9 @@ elif page == "🔥 Embodied Carbon":
         verified = len(
             df[df["match_status"] == "matched_co2data"]
         )
+        defaulted = int(
+            (df["match_status"] == "defaulted_by_type").sum()
+        )
         verified_pct = round(
             verified / len(df) * 100
         ) if len(df) > 0 else 0
@@ -454,12 +763,13 @@ elif page == "🔥 Embodied Carbon":
         c3.metric("Total Elements", len(df))
         c4.metric("Unmatched Elements", unmatched)
 
-        tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
             "By Material",
             "By Floor",
             "By Element Type",
             "Hotspots",
-            "Data Quality"
+            "Data Quality",
+            "Manual Override"
         ])
 
         with tab1:
@@ -571,7 +881,11 @@ elif page == "🔥 Embodied Carbon":
                 unmatched / total * 100
             ) if total > 0 else 0
 
-            col1, col2, col3 = st.columns(3)
+            defaulted_pct = round(
+                defaulted / total * 100
+            ) if total > 0 else 0
+
+            col1, col2, col3, col4 = st.columns(4)
             col1.metric(
                 "Finnish Verified EPD",
                 f"{verified} elements",
@@ -583,6 +897,11 @@ elif page == "🔥 Embodied Carbon":
                 f"{generic_pct}% of total"
             )
             col3.metric(
+                "Type Default Estimate",
+                f"{defaulted} elements",
+                f"{defaulted_pct}% of total"
+            )
+            col4.metric(
                 "No Match",
                 f"{unmatched} elements",
                 f"{unmatched_pct}% of total"
@@ -633,6 +952,13 @@ elif page == "🔥 Embodied Carbon":
                     return "background-color: #EAF3DE"
                 elif val == "Generic EN 15804":
                     return "background-color: #FAEEDA"
+                elif val == (
+                    "Element type default — verify material "
+                    "in BIM model"
+                ):
+                    return "background-color: #FFF3CD"
+                elif val == "Manual override by user":
+                    return "background-color: #E8E0F5"
                 else:
                     return "background-color: #FCEBEB"
 
@@ -661,20 +987,247 @@ elif page == "🔥 Embodied Carbon":
             )
 
             fig_quality = px.pie(
-                values=[verified, generic, unmatched],
+                values=[verified, generic, defaulted, unmatched],
                 names=[
                     "Finnish Verified EPD",
                     "Generic EN 15804",
+                    "Type Default Estimate",
                     "No Match"
                 ],
                 color_discrete_sequence=[
-                    "#1D9E75", "#EF9F27", "#D85A30"
+                    "#1D9E75", "#EF9F27", "#F5A623", "#D85A30"
                 ],
                 title="Data Quality Distribution"
             )
             st.plotly_chart(
                 fig_quality, use_container_width=True
             )
+
+        # ── Manual Override tab ───────────────────────────────
+        with tab6:
+            st.subheader(
+                "Manually assign materials to unmatched "
+                "or defaulted elements"
+            )
+            st.markdown(
+                "Elements with **No Match** or **Type Default** "
+                "status can be manually assigned here. Changes "
+                "are applied to the carbon calculation immediately."
+            )
+
+            _OVERRIDE_MATERIALS = [
+                "Ready-mix concrete, C25/30, GWP.REF",
+                "Precast concrete",
+                "Reinforced concrete",
+                "Steel",
+                "Sawn timber",
+                "GLT, Glued laminated timber",
+                "CLT, Cross laminated timber",
+                "LVL, laminated veneer lumber for beams, posts, and panels",
+                "Mineral wool insulation",
+                "EPS insulation",
+                "XPS insulation",
+                "Gypsum plasterboard, interiors",
+                "Glass",
+                "Brick",
+                "Concrete block",
+                "Gravel and sand",
+                "Stone (granite)",
+                "Plywood, spruce, uncoated",
+                "OSB panel",
+                "Aluminium",
+            ]
+
+            # Elements eligible for override
+            override_mask = df["match_status"].isin(
+                ["unmatched", "defaulted_by_type"]
+            )
+            override_df = df[override_mask].copy()
+
+            if override_df.empty:
+                st.success(
+                    "All elements are matched — no manual "
+                    "overrides needed."
+                )
+            else:
+                st.markdown(
+                    f"**{len(override_df)} elements** available "
+                    f"for manual assignment:"
+                )
+
+                # Display table
+                display_cols = [
+                    "element_id", "element_type", "name",
+                    "storey", "material", "match_status"
+                ]
+                available_cols = [
+                    c for c in display_cols
+                    if c in override_df.columns
+                ]
+                st.dataframe(
+                    override_df[available_cols]
+                    .rename(columns={
+                        "material": "current material",
+                        "match_status": "current match status"
+                    }),
+                    use_container_width=True
+                )
+
+                st.markdown("---")
+
+                # Material selector
+                chosen_material = st.selectbox(
+                    "Select material to assign to selected elements",
+                    options=_OVERRIDE_MATERIALS,
+                    key="override_material_select"
+                )
+
+                # Element ID multiselect
+                id_options = override_df["element_id"].tolist()
+                selected_ids = st.multiselect(
+                    "Select element IDs to assign this material to",
+                    options=id_options,
+                    default=[],
+                    key="override_element_ids"
+                )
+
+                if st.button(
+                    "Apply and Recalculate Carbon",
+                    type="primary",
+                    key="apply_override_btn"
+                ):
+                    if not selected_ids:
+                        st.warning(
+                            "Select at least one element ID first."
+                        )
+                    else:
+                        carbon_db = load_carbon_db()
+                        working_df = (
+                            st.session_state.carbon_df.copy()
+                        )
+
+                        updated = 0
+                        for eid in selected_ids:
+                            row_mask = (
+                                working_df["element_id"] == eid
+                            )
+                            if not row_mask.any():
+                                continue
+
+                            idx = working_df.index[row_mask][0]
+                            volume = working_df.at[
+                                idx, "volume_m3"
+                            ]
+
+                            # Try Finnish API first
+                            finnish = get_finnish_carbon_value(
+                                chosen_material
+                            )
+                            if finnish:
+                                density = (
+                                    finnish.get("density_kg_m3")
+                                    or get_fallback_density(
+                                        chosen_material
+                                    )
+                                )
+                                ec = finnish["conservative_gwp"]
+                                source = finnish["source"]
+                                stage = "A1-A3"
+                                matched_name = (
+                                    finnish["material_name"]
+                                )
+                            else:
+                                csv_row = match_csv_material(
+                                    chosen_material, carbon_db
+                                )
+                                if csv_row is not None:
+                                    density = csv_row[
+                                        "density_kg_m3"
+                                    ]
+                                    ec = csv_row[
+                                        "ec_kg_co2e_per_kg"
+                                    ]
+                                    source = csv_row["source"]
+                                    stage = csv_row["stage"]
+                                    matched_name = csv_row[
+                                        "material_name"
+                                    ]
+                                else:
+                                    density = get_fallback_density(
+                                        chosen_material
+                                    )
+                                    ec = 0.0
+                                    source = "Manual override"
+                                    stage = "A1-A3"
+                                    matched_name = chosen_material
+
+                            mass = volume * density
+                            carbon = mass * ec
+
+                            working_df.at[
+                                idx, "matched_material"
+                            ] = matched_name
+                            working_df.at[
+                                idx, "density_kg_m3"
+                            ] = density
+                            working_df.at[idx, "mass_kg"] = round(
+                                mass, 2
+                            )
+                            working_df.at[idx, "ec_factor"] = ec
+                            working_df.at[
+                                idx, "carbon_kg_co2e"
+                            ] = round(carbon, 2)
+                            working_df.at[idx, "source"] = (
+                                "Manual override"
+                            )
+                            working_df.at[idx, "stage"] = stage
+                            working_df.at[
+                                idx, "match_status"
+                            ] = "manual_override"
+                            working_df.at[
+                                idx, "data_quality"
+                            ] = "Manual override by user"
+
+                            # Persist override so it survives
+                            # page navigation
+                            st.session_state.manual_overrides[
+                                eid
+                            ] = chosen_material
+
+                            updated += 1
+
+                        st.session_state.carbon_df = working_df
+                        new_total_t = round(
+                            working_df["carbon_kg_co2e"].sum()
+                            / 1000, 2
+                        )
+                        st.success(
+                            f"Updated {updated} element(s) → "
+                            f"**{chosen_material}**. "
+                            f"New total carbon: "
+                            f"**{new_total_t} tCO₂e**. "
+                            f"Reload the other tabs to see "
+                            f"updated charts."
+                        )
+                        st.rerun()
+
+                # Show previously applied overrides
+                if st.session_state.manual_overrides:
+                    st.markdown("---")
+                    st.markdown(
+                        "**Previously applied overrides "
+                        "this session:**"
+                    )
+                    prev_df = pd.DataFrame(
+                        list(
+                            st.session_state
+                            .manual_overrides.items()
+                        ),
+                        columns=["Element ID", "Assigned Material"]
+                    )
+                    st.dataframe(
+                        prev_df, use_container_width=True
+                    )
 
 
 # ============================================================

@@ -434,7 +434,84 @@ def calculate_carbon(
                     "data_quality": "No match"
                 })
 
-    return pd.DataFrame(results)
+    result_df = pd.DataFrame(results)
+    result_df = apply_element_type_defaults(result_df)
+    return result_df
+
+
+# ─────────────────────────────────────────────────────────────
+# ELEMENT TYPE DEFAULT FALLBACK
+# Assigns a conservative default material + carbon factor to
+# unmatched elements based on structural role, so every
+# element contributes an estimate rather than zero carbon.
+# match_status is set to "defaulted_by_type" so the UI can
+# display these separately from verified / generic matches.
+# ─────────────────────────────────────────────────────────────
+_ELEMENT_TYPE_DEFAULTS = {
+    "Wall":             "Ready-mix concrete, C25/30, GWP.REF",
+    "Slab":             "Ready-mix concrete, C25/30, GWP.REF",
+    "Column":           "Ready-mix concrete, C25/30, GWP.REF",
+    "Beam":             "Steel",
+    "Footing":          "Ready-mix concrete, C25/30, GWP.REF",
+    "Pile":             "Ready-mix concrete, C25/30, GWP.REF",
+    "Roof":             "Sawn timber",
+    "Stair":            "Ready-mix concrete, C25/30, GWP.REF",
+    "Stair flight":     "Ready-mix concrete, C25/30, GWP.REF",
+    "Covering":         "Gypsum plasterboard, interiors",
+    "Door":             "Sawn timber",
+    "Window":           "Glass",
+    "Member":           "Steel",
+    "Plate":            "Steel",
+    "Railing":          "Steel",
+    "Curtain wall":     "Glass",
+    "Building element": "Ready-mix concrete, C25/30, GWP.REF",
+}
+
+
+def apply_element_type_defaults(carbon_df):
+    """For every row where match_status is 'unmatched', look up
+    the element_type in _ELEMENT_TYPE_DEFAULTS and re-run a
+    CSV match against that default material name.  Rows that
+    resolve get match_status='defaulted_by_type'; rows whose
+    element type is not in the mapping remain 'unmatched'.
+    """
+    if carbon_df.empty:
+        return carbon_df
+
+    carbon_db = load_carbon_db()
+    mask = carbon_df["match_status"] == "unmatched"
+    if not mask.any():
+        return carbon_df
+
+    df = carbon_df.copy()
+
+    for idx in df[mask].index:
+        elem_type = df.at[idx, "element_type"]
+        default_mat = _ELEMENT_TYPE_DEFAULTS.get(elem_type)
+        if not default_mat:
+            continue
+
+        csv_match = match_csv_material(default_mat, carbon_db)
+        if csv_match is None:
+            continue
+
+        volume = df.at[idx, "volume_m3"]
+        mass = volume * csv_match["density_kg_m3"]
+        carbon = mass * csv_match["ec_kg_co2e_per_kg"]
+
+        df.at[idx, "matched_material"] = csv_match["material_name"]
+        df.at[idx, "density_kg_m3"]   = csv_match["density_kg_m3"]
+        df.at[idx, "mass_kg"]         = round(mass, 2)
+        df.at[idx, "ec_factor"]       = csv_match["ec_kg_co2e_per_kg"]
+        df.at[idx, "carbon_kg_co2e"]  = round(carbon, 2)
+        df.at[idx, "source"]          = "Default estimate"
+        df.at[idx, "stage"]           = csv_match["stage"]
+        df.at[idx, "match_status"]    = "defaulted_by_type"
+        df.at[idx, "data_quality"]    = (
+            "Element type default — verify material in BIM model"
+        )
+
+    return df
 
 
 def get_hotspots(carbon_df, top_n=3):
