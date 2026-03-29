@@ -3,29 +3,240 @@ Concrete (general C25/30),2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
 Concrete (reinforced C30/37 1%),2500,0.188,470.0,EN 15804 / Ökobaudat,A1-A3
 Concrete (reinforced C35/45 2%),2600,0.208,540.8,EN 15804 / Ökobaudat,A1-A3
 Concrete (low carbon 50% GGBS),2400,0.080,192.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (low carbon 30% fly ash),2400,0.110,264.0,EN 15804 / Ökobaudat,A1-A3
 Concrete (precast element),2500,0.172,430.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (precast hollow core slab),2400,0.165,396.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (precast sandwich panel),2400,0.168,403.2,EN 15804 / Ökobaudat,A1-A3
+Concrete (self compacting),2450,0.170,416.5,EN 15804 / Ökobaudat,A1-A3
+Concrete (lightweight aggregate),1800,0.145,261.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (screed floor),2100,0.155,325.5,EN 15804 / Ökobaudat,A1-A3
+Concrete (C16/20),2400,0.148,355.2,EN 15804 / Ökobaudat,A1-A3
+Concrete (C20/25),2400,0.153,367.2,EN 15804 / Ökobaudat,A1-A3
+Concrete (C25/30),2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Concrete (C30/37),2450,0.166,406.7,EN 15804 / Ökobaudat,A1-A3
+Concrete (C35/45),2500,0.175,437.5,EN 15804 / Ökobaudat,A1-A3
+Concrete (C40/50),2500,0.182,455.0,EN 15804 / Ökobaudat,A1-A3
+Concrete (C45/55),2550,0.190,484.5,EN 15804 / Ökobaudat,A1-A3
+Concrete (C50/60),2600,0.198,514.8,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C25/30,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C30/37,2450,0.166,406.7,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C35/45,2500,0.175,437.5,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C40/50,2500,0.182,455.0,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C45/55,2550,0.190,484.5,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C50/60,2600,0.198,514.8,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C16/20,2400,0.148,355.2,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C20/25,2400,0.153,367.2,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K20,2400,0.148,355.2,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K25,2400,0.153,367.2,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K30,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K35,2450,0.166,406.7,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K40,2500,0.175,437.5,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K45,2550,0.185,471.75,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete K50,2600,0.198,514.8,EN 15804 / Ökobaudat,A1-A3
+Ready-mix concrete C25/30 GWP.REF,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Reinforced concrete,2500,0.188,470.0,EN 15804 / Ökobaudat,A1-A3
+Reinforced concrete C25/30,2500,0.188,470.0,EN 15804 / Ökobaudat,A1-A3
+Reinforced concrete C30/37,2500,0.195,487.5,EN 15804 / Ökobaudat,A1-A3
+Reinforced concrete C35/45,2550,0.208,530.4,EN 15804 / Ökobaudat,A1-A3
+Reinforced concrete C40/50,2600,0.218,566.8,EN 15804 / Ökobaudat,A1-A3
+Precast concrete,2500,0.172,430.0,EN 15804 / Ökobaudat,A1-A3
+Precast concrete element,2500,0.172,430.0,EN 15804 / Ökobaudat,A1-A3
+Precast concrete hollow core slab,2400,0.165,396.0,EN 15804 / Ökobaudat,A1-A3
+Precast concrete TT slab,2400,0.168,403.2,EN 15804 / Ökobaudat,A1-A3
+Precast concrete sandwich panel,2400,0.168,403.2,EN 15804 / Ökobaudat,A1-A3
+Precast concrete column,2500,0.175,437.5,EN 15804 / Ökobaudat,A1-A3
+Precast concrete beam,2500,0.175,437.5,EN 15804 / Ökobaudat,A1-A3
+Precast concrete stair,2500,0.172,430.0,EN 15804 / Ökobaudat,A1-A3
+In-situ concrete,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Foundation concrete,2400,0.159,381.6,EN 15804 / Ökobaudat,A1-A3
+Floor screed concrete,2100,0.155,325.5,EN 15804 / Ökobaudat,A1-A3
+Surface concrete,2100,0.155,325.5,EN 15804 / Ökobaudat,A1-A3
 Steel (structural section S355),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
 Steel (rebar B500B),7850,0.770,6044.5,EN 15804 / Ökobaudat,A1-A3
 Steel (recycled EAF route),7850,0.510,4003.5,EN 15804 / Ökobaudat,A1-A3
 Steel (hot rolled section),7850,1.480,11618.0,EN 15804 / Ökobaudat,A1-A3
+Steel (cold formed section),7850,1.620,12717.0,EN 15804 / Ökobaudat,A1-A3
+Steel (stainless 304),7900,6.150,48585.0,EN 15804 / Ökobaudat,A1-A3
+Steel (stainless 316),7900,6.800,53720.0,EN 15804 / Ökobaudat,A1-A3
+Steel (galvanised),7850,1.670,13109.5,EN 15804 / Ökobaudat,A1-A3
+Steel (hollow section),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel (plate),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel (profiled deck),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel (fixing channel hot-dip galvanised),7850,1.670,13109.5,EN 15804 / Ökobaudat,A1-A3
+Steel (hat profile),7850,1.620,12717.0,EN 15804 / Ökobaudat,A1-A3
+Steel (metal cassette facade),7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel S235,7850,1.480,11618.0,EN 15804 / Ökobaudat,A1-A3
+Steel S275,7850,1.510,11853.5,EN 15804 / Ökobaudat,A1-A3
+Steel S355,7850,1.550,12167.5,EN 15804 / Ökobaudat,A1-A3
+Steel S420,7850,1.590,12481.5,EN 15804 / Ökobaudat,A1-A3
+Steel S460,7850,1.620,12717.0,EN 15804 / Ökobaudat,A1-A3
+Rebar steel B500B,7850,0.770,6044.5,EN 15804 / Ökobaudat,A1-A3
+Rebar steel B600B,7850,0.790,6201.5,EN 15804 / Ökobaudat,A1-A3
 Timber (glulam GL30),500,0.390,195.0,EN 15804 / Ökobaudat,A1-A3
+Timber (glulam GL24),500,0.380,190.0,EN 15804 / Ökobaudat,A1-A3
+Timber (glulam GL28),500,0.385,192.5,EN 15804 / Ökobaudat,A1-A3
+Timber (glulam GL32),500,0.395,197.5,EN 15804 / Ökobaudat,A1-A3
 Timber (CLT cross laminated),500,0.276,138.0,EN 15804 / Ökobaudat,A1-A3
+Timber (CLT 100mm),500,0.276,138.0,EN 15804 / Ökobaudat,A1-A3
+Timber (CLT 120mm),500,0.276,138.0,EN 15804 / Ökobaudat,A1-A3
+Timber (CLT 160mm),500,0.276,138.0,EN 15804 / Ökobaudat,A1-A3
 Timber (softwood sawn),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (softwood planed),500,0.270,135.0,EN 15804 / Ökobaudat,A1-A3
+Timber (hardwood general),700,0.310,217.0,EN 15804 / Ökobaudat,A1-A3
 Timber (LVL laminated veneer),530,0.310,164.3,EN 15804 / Ökobaudat,A1-A3
+Timber (LVL Kerto-S),530,0.310,164.3,EN 15804 / Ökobaudat,A1-A3
+Timber (LVL Kerto-Q),530,0.310,164.3,EN 15804 / Ökobaudat,A1-A3
+Timber (OSB board),600,0.350,210.0,EN 15804 / Ökobaudat,A1-A3
+Timber (plywood spruce),550,0.320,176.0,EN 15804 / Ökobaudat,A1-A3
+Timber (plywood birch),680,0.350,238.0,EN 15804 / Ökobaudat,A1-A3
+Timber (MDF board),750,0.450,337.5,EN 15804 / Ökobaudat,A1-A3
+Timber (chipboard),650,0.390,253.5,EN 15804 / Ökobaudat,A1-A3
+Timber (timber frame stud),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (roof batten),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (joist),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (beam),500,0.310,155.0,EN 15804 / Ökobaudat,A1-A3
+Timber (column),500,0.310,155.0,EN 15804 / Ökobaudat,A1-A3
+Timber (log wall),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (spruce sawn),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (pine sawn),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Timber (birch sawn),700,0.310,217.0,EN 15804 / Ökobaudat,A1-A3
 Brick (clay fired),1700,0.240,408.0,EN 15804 / Ökobaudat,A1-A3
+Brick (clay engineering),2000,0.260,520.0,EN 15804 / Ökobaudat,A1-A3
 Brick (calcium silicate),1800,0.190,342.0,EN 15804 / Ökobaudat,A1-A3
+Brick (concrete block),2200,0.095,209.0,EN 15804 / Ökobaudat,A1-A3
+Brick (lightweight concrete block),1200,0.088,105.6,EN 15804 / Ökobaudat,A1-A3
+Brick (aerated concrete block AAC),600,0.280,168.0,EN 15804 / Ökobaudat,A1-A3
+Brick (hollow clay block),1100,0.220,242.0,EN 15804 / Ökobaudat,A1-A3
+Masonry (brick general),1700,0.240,408.0,EN 15804 / Ökobaudat,A1-A3
+Masonry (stone),2200,0.100,220.0,EN 15804 / Ökobaudat,A1-A3
+Calcium silicate unit,1800,0.190,342.0,EN 15804 / Ökobaudat,A1-A3
+Calcium silicate brick,1800,0.190,342.0,EN 15804 / Ökobaudat,A1-A3
+Autoclaved aerated concrete AAC,600,0.280,168.0,EN 15804 / Ökobaudat,A1-A3
 Glass (float general),2500,0.850,2125.0,EN 15804 / Ökobaudat,A1-A3
+Glass (toughened tempered),2500,1.050,2625.0,EN 15804 / Ökobaudat,A1-A3
+Glass (laminated),2500,1.100,2750.0,EN 15804 / Ökobaudat,A1-A3
+Glass (double glazed unit),2500,0.780,1950.0,EN 15804 / Ökobaudat,A1-A3
 Glass (triple glazed unit),2500,0.780,1950.0,EN 15804 / Ökobaudat,A1-A3
+Glass (low-e coated),2500,0.900,2250.0,EN 15804 / Ökobaudat,A1-A3
+Glass (structural),2500,0.950,2375.0,EN 15804 / Ökobaudat,A1-A3
+Glass (10mm),2500,0.850,2125.0,EN 15804 / Ökobaudat,A1-A3
 Aluminium (general primary),2700,6.700,18090.0,EN 15804 / Ökobaudat,A1-A3
 Aluminium (recycled secondary),2700,0.680,1836.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (extruded section),2700,7.200,19440.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (sheet),2700,6.800,18360.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (anodised),2700,7.500,20250.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (window frame),2700,7.200,19440.0,EN 15804 / Ökobaudat,A1-A3
+Aluminium (curtain wall),2700,7.200,19440.0,EN 15804 / Ökobaudat,A1-A3
 Insulation (EPS expanded),25,3.290,82.25,EN 15804 / Ökobaudat,A1-A3
-Insulation (mineral wool),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (EPS 70),25,3.290,82.25,EN 15804 / Ökobaudat,A1-A3
+Insulation (EPS 100),30,3.290,98.7,EN 15804 / Ökobaudat,A1-A3
+Insulation (EPS 150),35,3.290,115.15,EN 15804 / Ökobaudat,A1-A3
+Insulation (XPS extruded),35,3.500,122.5,EN 15804 / Ökobaudat,A1-A3
+Insulation (XPS 105),35,3.500,122.5,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool general),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool 100mm),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool 125mm),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool 150mm),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (mineral wool 200mm),30,1.280,38.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (glass wool),15,1.350,20.25,EN 15804 / Ökobaudat,A1-A3
+Insulation (rock wool),100,1.050,105.0,EN 15804 / Ökobaudat,A1-A3
 Insulation (wood fibre),50,0.420,21.0,EN 15804 / Ökobaudat,A1-A3
-Insulation (cellulose),50,0.250,12.5,EN 15804 / Ökobaudat,A1-A3
+Insulation (cellulose loose fill),50,0.250,12.5,EN 15804 / Ökobaudat,A1-A3
+Insulation (cellulose board),50,0.280,14.0,EN 15804 / Ökobaudat,A1-A3
+Insulation (polyurethane PUR),30,3.480,104.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (polyurethane spray),30,3.480,104.4,EN 15804 / Ökobaudat,A1-A3
+Insulation (PIR board),32,2.890,92.48,EN 15804 / Ökobaudat,A1-A3
+Insulation (phenolic foam),35,3.100,108.5,EN 15804 / Ökobaudat,A1-A3
+Insulation (cork),120,0.180,21.6,EN 15804 / Ökobaudat,A1-A3
+Insulation (hemp),35,0.490,17.15,EN 15804 / Ökobaudat,A1-A3
+Insulation (sheep wool),25,0.490,12.25,EN 15804 / Ökobaudat,A1-A3
+Insulation (aerogel),150,4.500,675.0,EN 15804 / Ökobaudat,A1-A3
+Insulation (perlite loose),100,0.750,75.0,EN 15804 / Ökobaudat,A1-A3
+Insulation (vermiculite),100,0.650,65.0,EN 15804 / Ökobaudat,A1-A3
 Gypsum board (standard),950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
 Gypsum board (recycled),950,0.210,199.5,EN 15804 / Ökobaudat,A1-A3
+Gypsum board (moisture resistant),950,0.400,380.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum board (fire resistant),1050,0.420,441.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum board GN13,950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum board GKB,950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum plasterboard,950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum plasterboard interiors,950,0.380,361.0,EN 15804 / Ökobaudat,A1-A3
+Gypsum (plaster general),1150,0.290,333.5,EN 15804 / Ökobaudat,A1-A3
+Gypsum (screed),1150,0.160,184.0,EN 15804 / Ökobaudat,A1-A3
 Copper (general),8900,2.710,24119.0,EN 15804 / Ökobaudat,A1-A3
+Copper (tube),8900,2.850,25365.0,EN 15804 / Ökobaudat,A1-A3
+Copper (sheet),8900,2.710,24119.0,EN 15804 / Ökobaudat,A1-A3
+Copper (recycled),8900,1.500,13350.0,EN 15804 / Ökobaudat,A1-A3
 Stone (granite),2600,0.130,338.0,EN 15804 / Ökobaudat,A1-A3
 Stone (limestone),2200,0.090,198.0,EN 15804 / Ökobaudat,A1-A3
+Stone (sandstone),2200,0.080,176.0,EN 15804 / Ökobaudat,A1-A3
+Stone (marble),2700,0.110,297.0,EN 15804 / Ökobaudat,A1-A3
+Stone (slate),2700,0.080,216.0,EN 15804 / Ökobaudat,A1-A3
+Stone (basalt),2900,0.090,261.0,EN 15804 / Ökobaudat,A1-A3
+Stone (crushed aggregate),1900,0.048,91.2,EN 15804 / Ökobaudat,A1-A3
+Gravel and sand,1800,0.010,18.0,EN 15804 / Ökobaudat,A1-A3
+Gravel (bulk fill),1800,0.010,18.0,EN 15804 / Ökobaudat,A1-A3
+Sand (fill),1600,0.010,16.0,EN 15804 / Ökobaudat,A1-A3
+Crushed stone aggregate,1900,0.048,91.2,EN 15804 / Ökobaudat,A1-A3
 Ceramic tiles,2000,0.720,1440.0,EN 15804 / Ökobaudat,A1-A3
-Polystyrene (XPS),35,3.500,122.5,EN 15804 / Ökobaudat,A1-A3
+Ceramic tiles floor,2000,0.720,1440.0,EN 15804 / Ökobaudat,A1-A3
+Ceramic tiles wall,1900,0.700,1330.0,EN 15804 / Ökobaudat,A1-A3
+Porcelain tiles,2300,0.780,1794.0,EN 15804 / Ökobaudat,A1-A3
+Natural stone tiles,2600,0.130,338.0,EN 15804 / Ökobaudat,A1-A3
+Polystyrene XPS,35,3.500,122.5,EN 15804 / Ökobaudat,A1-A3
+Polystyrene EPS,25,3.290,82.25,EN 15804 / Ökobaudat,A1-A3
+Bitumen (general),1050,0.340,357.0,EN 15804 / Ökobaudat,A1-A3
+Bitumen (modified),1100,0.380,418.0,EN 15804 / Ökobaudat,A1-A3
+Bitumen (waterproofing membrane),1100,0.410,451.0,EN 15804 / Ökobaudat,A1-A3
+Asphalt (road),2300,0.052,119.6,EN 15804 / Ökobaudat,A1-A3
+Waterproofing membrane,1100,0.410,451.0,EN 15804 / Ökobaudat,A1-A3
+Waterproofing liquid applied,1200,0.450,540.0,EN 15804 / Ökobaudat,A1-A3
+Render (general),1800,0.180,324.0,EN 15804 / Ökobaudat,A1-A3
+Render (external),1800,0.180,324.0,EN 15804 / Ökobaudat,A1-A3
+Render (internal),1500,0.160,240.0,EN 15804 / Ökobaudat,A1-A3
+Plaster (lime),1600,0.200,320.0,EN 15804 / Ökobaudat,A1-A3
+Plaster (gypsum),1150,0.290,333.5,EN 15804 / Ökobaudat,A1-A3
+Paint (general),1400,2.400,3360.0,EN 15804 / Ökobaudat,A1-A3
+Paint (external),1400,2.800,3920.0,EN 15804 / Ökobaudat,A1-A3
+Paint (internal),1400,2.200,3080.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (parquet hardwood),700,0.310,217.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (parquet softwood),500,0.263,131.5,EN 15804 / Ökobaudat,A1-A3
+Flooring (laminate),800,0.640,512.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (vinyl LVT),1500,2.100,3150.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (carpet),200,3.500,700.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (linoleum),1200,1.060,1272.0,EN 15804 / Ökobaudat,A1-A3
+Flooring (rubber),1500,2.800,4200.0,EN 15804 / Ökobaudat,A1-A3
+Zinc (sheet),7133,2.510,17904.0,EN 15804 / Ökobaudat,A1-A3
+Zinc (galvanising),7133,2.510,17904.0,EN 15804 / Ökobaudat,A1-A3
+Lead (sheet),11340,1.570,17803.8,EN 15804 / Ökobaudat,A1-A3
+PVC (general),1380,2.500,3450.0,EN 15804 / Ökobaudat,A1-A3
+PVC (pipe),1380,2.500,3450.0,EN 15804 / Ökobaudat,A1-A3
+PVC (window frame),1380,2.800,3864.0,EN 15804 / Ökobaudat,A1-A3
+Polypropylene PP,910,1.710,1556.1,EN 15804 / Ökobaudat,A1-A3
+Polyethylene PE,950,1.800,1710.0,EN 15804 / Ökobaudat,A1-A3
+EPDM rubber membrane,1150,3.400,3910.0,EN 15804 / Ökobaudat,A1-A3
+TPO membrane,900,2.900,2610.0,EN 15804 / Ökobaudat,A1-A3
+Fibre cement board,1400,0.430,602.0,EN 15804 / Ökobaudat,A1-A3
+Fibre cement cladding,1400,0.430,602.0,EN 15804 / Ökobaudat,A1-A3
+Calcium silicate board,875,0.350,306.25,EN 15804 / Ökobaudat,A1-A3
+Vermiculite board,300,0.380,114.0,EN 15804 / Ökobaudat,A1-A3
+Rockwool (general),100,1.050,105.0,EN 15804 / Ökobaudat,A1-A3
+Rockwool (facade slab),150,1.050,157.5,EN 15804 / Ökobaudat,A1-A3
+Glasswool (general),15,1.350,20.25,EN 15804 / Ökobaudat,A1-A3
+Glasswool (roll),15,1.350,20.25,EN 15804 / Ökobaudat,A1-A3
+Concrete block,2200,0.095,209.0,EN 15804 / Ökobaudat,A1-A3
+Lightweight concrete block,1200,0.088,105.6,EN 15804 / Ökobaudat,A1-A3
+Aerated concrete block,600,0.280,168.0,EN 15804 / Ökobaudat,A1-A3
+Hollow clay block,1100,0.220,242.0,EN 15804 / Ökobaudat,A1-A3
+Mortar (general),2000,0.208,416.0,EN 15804 / Ökobaudat,A1-A3
+Mortar (cement),2000,0.208,416.0,EN 15804 / Ökobaudat,A1-A3
+Mortar (lime),1800,0.150,270.0,EN 15804 / Ökobaudat,A1-A3
+Adhesive (tile),1500,0.450,675.0,EN 15804 / Ökobaudat,A1-A3
+Sealant (silicone),1300,5.200,6760.0,EN 15804 / Ökobaudat,A1-A3
+Expanded clay (lightweight aggregate),450,0.280,126.0,EN 15804 / Ökobaudat,A1-A3
+Perlite (loose),100,0.750,75.0,EN 15804 / Ökobaudat,A1-A3
+Soil (general),1800,0.005,9.0,EN 15804 / Ökobaudat,A1-A3
+Soil (clay),1600,0.005,8.0,EN 15804 / Ökobaudat,A1-A3
+Fill material,1800,0.010,18.0,EN 15804 / Ökobaudat,A1-A3
+Hardcore fill,2000,0.020,40.0,EN 15804 / Ökobaudat,A1-A3

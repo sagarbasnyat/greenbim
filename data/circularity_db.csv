@@ -3,29 +3,237 @@ Concrete (general C25/30),0.60,0.10,0.30,0,Crushing and recycling as aggregate,R
 Concrete (reinforced C30/37 1%),0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
 Concrete (reinforced C35/45 2%),0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
 Concrete (low carbon 50% GGBS),0.65,0.35,0.30,0,Crushing and recycling as aggregate,Higher recycled content from GGBS
+Concrete (low carbon 30% fly ash),0.65,0.30,0.30,0,Crushing and recycling as aggregate,Fly ash increases recycled content
 Concrete (precast element),0.70,0.10,0.60,0,Reuse potential then crushing,Precast allows higher disassembly
+Concrete (precast hollow core slab),0.72,0.10,0.65,0,Reuse potential then crushing,Good reuse potential if undamaged
+Concrete (precast sandwich panel),0.68,0.10,0.55,0,Partial reuse then crushing,Composite limits full reuse
+Concrete (precast TT slab),0.70,0.10,0.60,0,Reuse potential then crushing,Good structural reuse potential
+Concrete (precast column),0.72,0.10,0.65,0,Reuse or crushing,Standard precast reuse potential
+Concrete (precast beam),0.72,0.10,0.65,0,Reuse or crushing,Standard precast reuse potential
+Concrete (precast stair),0.68,0.10,0.55,0,Reuse or crushing,Moderate reuse potential
+Concrete (self compacting),0.60,0.10,0.30,0,Crushing and recycling as aggregate,Similar to standard concrete
+Concrete (lightweight aggregate),0.55,0.05,0.25,0,Crushing limited recycling,Lower density limits recycling
+Concrete (screed floor),0.55,0.05,0.25,0,Crushing limited recycling,Bonded screed hard to separate
+Concrete (C16/20),0.58,0.10,0.30,0,Crushing and recycling as aggregate,Lower strength standard recycling
+Concrete (C20/25),0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard concrete recycling
+Concrete (C25/30),0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard concrete recycling
+Concrete (C30/37),0.62,0.10,0.30,0,Crushing and recycling as aggregate,Standard concrete recycling
+Concrete (C35/45),0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Concrete (C40/50),0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Concrete (C45/55),0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Concrete (C50/60),0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Ready-mix concrete,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard ready mix recycling
+Ready-mix concrete C25/30,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard ready mix recycling
+Ready-mix concrete C30/37,0.62,0.10,0.30,0,Crushing and recycling as aggregate,Standard ready mix recycling
+Ready-mix concrete C35/45,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Ready-mix concrete C40/50,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Ready-mix concrete C45/55,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Ready-mix concrete C50/60,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Higher strength standard recycling
+Ready-mix concrete C16/20,0.58,0.10,0.30,0,Crushing and recycling as aggregate,Lower strength standard recycling
+Ready-mix concrete C20/25,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard ready mix recycling
+Ready-mix concrete K20,0.58,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K25,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K30,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K35,0.62,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K40,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K45,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete K50,0.63,0.10,0.30,0,Crushing and recycling as aggregate,Finnish grade standard recycling
+Ready-mix concrete C25/30 GWP.REF,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Finnish MoE reference value
+Ready-mix concrete GWP.REF,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Finnish MoE reference value
+Reinforced concrete,0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
+Reinforced concrete C25/30,0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
+Reinforced concrete C30/37,0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
+Reinforced concrete C35/45,0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
+Reinforced concrete C40/50,0.65,0.10,0.30,0,Crushing rebar recovery recycling,Rebar recoverable steel recyclable
+In-situ concrete,0.60,0.10,0.30,0,Crushing and recycling as aggregate,Standard in-situ recycling
+Foundation concrete,0.58,0.05,0.20,0,Crushing limited recycling,Below ground limits reuse
+Floor screed concrete,0.55,0.05,0.25,0,Crushing limited recycling,Bonded application limits reuse
+Surface concrete,0.55,0.05,0.25,0,Crushing limited recycling,Surface finish limited reuse
 Steel (structural section S355),0.95,0.70,0.80,0,Direct reuse or EAF recycling,Highest circularity material
 Steel (rebar B500B),0.90,0.65,0.50,0,EAF recycling,High recyclability
 Steel (recycled EAF route),0.95,0.90,0.80,0,Direct reuse or EAF recycling,Best practice circular steel
 Steel (hot rolled section),0.95,0.60,0.80,0,Direct reuse or EAF recycling,High recyclability
+Steel (cold formed section),0.90,0.55,0.75,0,EAF recycling,High recyclability
+Steel (stainless 304),0.92,0.60,0.75,0,EAF recycling stainless,High value recyclable
+Steel (stainless 316),0.92,0.60,0.75,0,EAF recycling stainless,High value recyclable
+Steel (galvanised),0.85,0.55,0.70,0,EAF recycling zinc recovery,Zinc coating recoverable
+Steel (hollow section),0.95,0.65,0.80,0,Direct reuse or EAF recycling,High reuse potential
+Steel (plate),0.95,0.65,0.75,0,Direct reuse or EAF recycling,High recyclability
+Steel (profiled deck),0.88,0.55,0.50,0,EAF recycling,Composite use limits disassembly
+Steel (fixing channel hot-dip galvanised),0.85,0.55,0.65,0,EAF recycling zinc recovery,Zinc coating recoverable
+Steel (hat profile),0.90,0.55,0.70,0,EAF recycling,High recyclability
+Steel (metal cassette facade),0.88,0.55,0.65,0,Direct reuse or EAF recycling,Good reuse if fixings accessible
+Steel S235,0.95,0.60,0.80,0,Direct reuse or EAF recycling,Standard structural steel
+Steel S275,0.95,0.62,0.80,0,Direct reuse or EAF recycling,Standard structural steel
+Steel S355,0.95,0.70,0.80,0,Direct reuse or EAF recycling,High strength structural steel
+Steel S420,0.95,0.68,0.80,0,Direct reuse or EAF recycling,High strength structural steel
+Steel S460,0.95,0.68,0.80,0,Direct reuse or EAF recycling,Very high strength structural steel
+Rebar steel B500B,0.90,0.65,0.50,0,EAF recycling,High recyclability embedded
+Rebar steel B600B,0.90,0.65,0.50,0,EAF recycling,High recyclability embedded
 Timber (glulam GL30),0.80,0.00,0.70,0,Reuse or biomass energy,Bio-based renewable material
+Timber (glulam GL24),0.80,0.00,0.70,0,Reuse or biomass energy,Bio-based renewable material
+Timber (glulam GL28),0.80,0.00,0.70,0,Reuse or biomass energy,Bio-based renewable material
+Timber (glulam GL32),0.80,0.00,0.70,0,Reuse or biomass energy,Bio-based renewable material
 Timber (CLT cross laminated),0.82,0.00,0.75,0,Reuse or biomass energy,Good reuse potential if connections allow
+Timber (CLT 100mm),0.82,0.00,0.75,0,Reuse or biomass energy,Good reuse potential
+Timber (CLT 120mm),0.82,0.00,0.75,0,Reuse or biomass energy,Good reuse potential
+Timber (CLT 160mm),0.82,0.00,0.75,0,Reuse or biomass energy,Good reuse potential
 Timber (softwood sawn),0.75,0.00,0.75,0,Reuse or biomass energy,Easy to reuse if undamaged
+Timber (softwood planed),0.75,0.00,0.75,0,Reuse or biomass energy,Easy to reuse if undamaged
+Timber (hardwood general),0.78,0.00,0.72,0,Reuse or biomass energy,High value reuse potential
 Timber (LVL laminated veneer),0.70,0.00,0.65,0,Biomass energy recovery,Adhesives limit recyclability
+Timber (LVL Kerto-S),0.70,0.00,0.65,0,Biomass energy recovery,Finnish LVL adhesives limit recyclability
+Timber (LVL Kerto-Q),0.70,0.00,0.65,0,Biomass energy recovery,Finnish LVL adhesives limit recyclability
+Timber (OSB board),0.55,0.00,0.40,0,Biomass energy recovery,Adhesives significantly limit recycling
+Timber (plywood spruce),0.60,0.00,0.45,0,Biomass energy recovery,Adhesives limit recyclability
+Timber (plywood birch),0.60,0.00,0.45,0,Biomass energy recovery,Adhesives limit recyclability
+Timber (MDF board),0.30,0.00,0.20,0,Biomass energy recovery,High adhesive content poor circularity
+Timber (chipboard),0.35,0.10,0.25,0,Biomass energy recovery,Some recycled wood content
+Timber (timber frame stud),0.75,0.00,0.75,0,Reuse or biomass energy,Easy to reuse if undamaged
+Timber (roof batten),0.75,0.00,0.75,0,Reuse or biomass energy,Easy to reuse
+Timber (joist),0.75,0.00,0.75,0,Reuse or biomass energy,Easy to reuse if undamaged
+Timber (beam),0.78,0.00,0.72,0,Reuse or biomass energy,Good reuse potential
+Timber (column),0.78,0.00,0.72,0,Reuse or biomass energy,Good reuse potential
+Timber (log wall),0.80,0.00,0.78,0,Reuse or biomass energy,Excellent reuse potential
+Timber (spruce sawn),0.75,0.00,0.75,0,Reuse or biomass energy,Finnish spruce easy to reuse
+Timber (pine sawn),0.75,0.00,0.75,0,Reuse or biomass energy,Finnish pine easy to reuse
+Timber (birch sawn),0.78,0.00,0.72,0,Reuse or biomass energy,Finnish birch high value reuse
 Brick (clay fired),0.70,0.05,0.60,0,Reuse or crushing,Good reuse if lime mortar used
+Brick (clay engineering),0.72,0.05,0.62,0,Reuse or crushing,Durable good reuse potential
 Brick (calcium silicate),0.65,0.05,0.55,0,Crushing and recycling,Moderate circularity
+Brick (concrete block),0.62,0.15,0.50,0,Crushing or reuse,Some recycled content possible
+Brick (lightweight concrete block),0.58,0.10,0.45,0,Crushing limited recycling,Lower density limits options
+Brick (aerated concrete block AAC),0.55,0.05,0.40,0,Crushing limited recycling,Porous structure limits options
+Brick (hollow clay block),0.68,0.05,0.55,0,Reuse or crushing,Good reuse if careful demolition
+Masonry (brick general),0.70,0.05,0.60,0,Reuse or crushing,General masonry reuse potential
+Masonry (stone),0.85,0.00,0.70,0,Reuse,Natural stone excellent reuse
+Calcium silicate unit,0.65,0.05,0.55,0,Crushing and recycling,Moderate circularity
+Calcium silicate brick,0.65,0.05,0.55,0,Crushing and recycling,Moderate circularity
+Autoclaved aerated concrete AAC,0.55,0.05,0.40,0,Crushing limited recycling,Porous structure limits options
 Glass (float general),0.65,0.20,0.40,0,Cullet recycling,Recyclable but separation needed
+Glass (toughened tempered),0.60,0.20,0.35,0,Cullet recycling limited,Tempered limits cullet quality
+Glass (laminated),0.50,0.20,0.30,0,Partial cullet recovery,Interlayer complicates recycling
+Glass (double glazed unit),0.58,0.20,0.32,0,Partial cullet recovery,Complex unit limits recyclability
 Glass (triple glazed unit),0.55,0.20,0.30,0,Partial cullet recovery,Complex unit limits recyclability
+Glass (low-e coated),0.58,0.20,0.32,0,Partial cullet recovery,Coating limits cullet quality
+Glass (structural),0.60,0.20,0.35,0,Cullet recycling,Recyclable with processing
+Glass (10mm),0.65,0.20,0.40,0,Cullet recycling,Standard float recycling
 Aluminium (general primary),0.85,0.33,0.70,0,Remelting and recycling,Very high recyclability
 Aluminium (recycled secondary),0.90,0.95,0.70,0,Remelting and recycling,Best practice circular aluminium
+Aluminium (extruded section),0.88,0.50,0.72,0,Remelting and recycling,High recyclability
+Aluminium (sheet),0.88,0.45,0.70,0,Remelting and recycling,High recyclability
+Aluminium (anodised),0.85,0.40,0.68,0,Remelting and recycling,Anodising slightly limits quality
+Aluminium (window frame),0.85,0.50,0.65,0,Remelting and recycling,Good recyclability
+Aluminium (curtain wall),0.85,0.45,0.60,0,Remelting and recycling,System complexity limits disassembly
 Insulation (EPS expanded),0.15,0.00,0.20,0,Landfill or energy recovery,Poor circularity avoid if possible
-Insulation (mineral wool),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (EPS 70),0.15,0.00,0.20,0,Landfill or energy recovery,Poor circularity
+Insulation (EPS 100),0.15,0.00,0.20,0,Landfill or energy recovery,Poor circularity
+Insulation (EPS 150),0.15,0.00,0.20,0,Landfill or energy recovery,Poor circularity
+Insulation (XPS extruded),0.10,0.00,0.15,0,Landfill,Very poor circularity avoid
+Insulation (XPS 105),0.10,0.00,0.15,0,Landfill,Very poor circularity avoid
+Insulation (mineral wool general),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (mineral wool 100mm),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (mineral wool 125mm),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (mineral wool 150mm),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (mineral wool 200mm),0.40,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Insulation (glass wool),0.35,0.25,0.28,0,Landfill or energy recovery,Limited recycling infrastructure
+Insulation (rock wool),0.42,0.15,0.30,0,Landfill or energy recovery,Limited recycling options
 Insulation (wood fibre),0.70,0.00,0.50,0,Composting or biomass energy,Bio-based good end of life
-Insulation (cellulose),0.75,0.85,0.50,0,Composting or biomass energy,High recycled content from paper
+Insulation (cellulose loose fill),0.75,0.85,0.50,0,Composting or biomass energy,High recycled content from paper
+Insulation (cellulose board),0.72,0.80,0.48,0,Composting or biomass energy,High recycled content
+Insulation (polyurethane PUR),0.10,0.00,0.15,0,Landfill or energy recovery,Very poor circularity
+Insulation (polyurethane spray),0.05,0.00,0.10,0,Landfill,Extremely poor circularity bonded application
+Insulation (PIR board),0.12,0.00,0.18,0,Landfill or energy recovery,Poor circularity
+Insulation (phenolic foam),0.10,0.00,0.15,0,Landfill,Poor circularity
+Insulation (cork),0.80,0.00,0.65,0,Composting or reuse,Natural material good circularity
+Insulation (hemp),0.82,0.00,0.68,0,Composting or biomass energy,Excellent bio-based circularity
+Insulation (sheep wool),0.80,0.00,0.65,0,Composting or biomass energy,Natural material good circularity
+Insulation (aerogel),0.20,0.00,0.20,0,Landfill,Poor circularity high performance
+Insulation (perlite loose),0.50,0.00,0.45,0,Inert landfill or reuse,Inorganic moderate circularity
+Insulation (vermiculite),0.50,0.00,0.45,0,Inert landfill or reuse,Inorganic moderate circularity
 Gypsum board (standard),0.45,0.10,0.35,0,Gypsum recycling,Recycling infrastructure exists in Finland
 Gypsum board (recycled),0.55,0.80,0.35,0,Gypsum recycling,High recycled content
+Gypsum board (moisture resistant),0.42,0.10,0.33,0,Gypsum recycling,Additives slightly limit recycling
+Gypsum board (fire resistant),0.40,0.10,0.30,0,Gypsum recycling,Fire retardants limit recycling quality
+Gypsum board GN13,0.45,0.10,0.35,0,Gypsum recycling,Standard Finnish gypsum board
+Gypsum board GKB,0.45,0.10,0.35,0,Gypsum recycling,Standard Finnish gypsum board
+Gypsum plasterboard,0.45,0.10,0.35,0,Gypsum recycling,Standard plasterboard recycling
+Gypsum plasterboard interiors,0.45,0.10,0.35,0,Gypsum recycling,Interior plasterboard recycling
+Gypsum (plaster general),0.40,0.05,0.25,0,Gypsum recycling limited,Applied finish limits recovery
+Gypsum (screed),0.38,0.05,0.20,0,Gypsum recycling limited,Bonded application limits recovery
 Copper (general),0.90,0.40,0.65,0,Direct reuse or smelting,High value recyclable
+Copper (tube),0.90,0.40,0.65,0,Direct reuse or smelting,High value recyclable
+Copper (sheet),0.90,0.40,0.65,0,Direct reuse or smelting,High value recyclable
+Copper (recycled),0.92,0.90,0.65,0,Direct reuse or smelting,Excellent circular copper
 Stone (granite),0.80,0.00,0.65,0,Reuse or crushing,Long lifespan good reuse potential
 Stone (limestone),0.75,0.00,0.60,0,Reuse or crushing,Good reuse potential
+Stone (sandstone),0.75,0.00,0.60,0,Reuse or crushing,Good reuse potential
+Stone (marble),0.78,0.00,0.65,0,Reuse or crushing,High value reuse potential
+Stone (slate),0.80,0.00,0.68,0,Reuse,Excellent durability and reuse
+Stone (basalt),0.75,0.00,0.60,0,Reuse or crushing,Good durability
+Stone (crushed aggregate),0.70,0.20,0.50,0,Reuse as aggregate,Recycled aggregate use
+Gravel and sand,0.70,0.10,0.50,0,Reuse as fill,Inert reusable material
+Gravel (bulk fill),0.70,0.10,0.50,0,Reuse as fill,Inert reusable material
+Sand (fill),0.70,0.10,0.50,0,Reuse as fill,Inert reusable material
+Crushed stone aggregate,0.72,0.20,0.52,0,Reuse as aggregate,Recycled aggregate
 Ceramic tiles,0.35,0.05,0.25,0,Crushing landfill,Poor circularity hard to separate
-Polystyrene (XPS),0.10,0.00,0.15,0,Landfill,Very poor circularity avoid
+Ceramic tiles floor,0.35,0.05,0.25,0,Crushing landfill,Adhesive bonding limits recovery
+Ceramic tiles wall,0.35,0.05,0.25,0,Crushing landfill,Adhesive bonding limits recovery
+Porcelain tiles,0.32,0.05,0.22,0,Crushing landfill,Very hard material limited recycling
+Natural stone tiles,0.78,0.00,0.55,0,Reuse or crushing,Natural material good reuse
+Polystyrene XPS,0.10,0.00,0.15,0,Landfill,Very poor circularity avoid
+Polystyrene EPS,0.15,0.00,0.20,0,Landfill or energy recovery,Poor circularity
+Bitumen (general),0.25,0.10,0.20,0,Energy recovery or landfill,Limited recycling options
+Bitumen (modified),0.22,0.08,0.18,0,Energy recovery or landfill,Additives limit recycling
+Bitumen (waterproofing membrane),0.20,0.05,0.15,0,Energy recovery or landfill,Complex composite limits recycling
+Asphalt (road),0.75,0.20,0.55,0,Recycling as reclaimed asphalt,High recycling rate in road sector
+Waterproofing membrane,0.20,0.05,0.15,0,Energy recovery or landfill,Complex composite limits recycling
+Waterproofing liquid applied,0.10,0.00,0.10,0,Landfill,Applied finish extremely poor circularity
+Render (general),0.30,0.05,0.20,0,Crushing landfill,Applied finish hard to recover
+Render (external),0.28,0.05,0.18,0,Crushing landfill,Weathered finish hard to recover
+Render (internal),0.32,0.05,0.22,0,Crushing landfill,Applied finish hard to recover
+Plaster (lime),0.40,0.05,0.30,0,Crushing limited recycling,Lime plaster more recoverable
+Plaster (gypsum),0.38,0.05,0.25,0,Gypsum recycling limited,Applied finish limits recovery
+Paint (general),0.05,0.00,0.05,0,Landfill or hazardous waste,Applied finish very poor circularity
+Paint (external),0.05,0.00,0.05,0,Landfill or hazardous waste,Weatherproofing additives hazardous
+Paint (internal),0.08,0.00,0.05,0,Landfill,Applied finish very poor circularity
+Flooring (parquet hardwood),0.72,0.00,0.65,0,Reuse or biomass energy,Good reuse if undamaged
+Flooring (parquet softwood),0.70,0.00,0.65,0,Reuse or biomass energy,Good reuse if undamaged
+Flooring (laminate),0.25,0.10,0.30,0,Landfill or energy recovery,Composite limits recyclability
+Flooring (vinyl LVT),0.15,0.05,0.25,0,Landfill or energy recovery,PVC content limits circularity
+Flooring (carpet),0.20,0.20,0.30,0,Landfill or energy recovery,Limited recycling options
+Flooring (linoleum),0.55,0.00,0.40,0,Composting or energy recovery,Natural material moderate circularity
+Flooring (rubber),0.35,0.15,0.30,0,Energy recovery or landfill,Limited recycling options
+Zinc (sheet),0.80,0.30,0.65,0,Remelting and recycling,High recyclability
+Zinc (galvanising),0.75,0.25,0.55,0,Recovery during steel recycling,Recovered during steel processing
+Lead (sheet),0.85,0.60,0.65,1,Specialist recycling hazardous,High recyclability but hazardous
+PVC (general),0.30,0.10,0.30,1,Energy recovery specialist,Chlorine content limits recycling
+PVC (pipe),0.35,0.10,0.35,1,Energy recovery specialist,Chlorine content limits recycling
+PVC (window frame),0.30,0.15,0.40,1,Energy recovery specialist,Some mechanical recycling possible
+Polypropylene PP,0.55,0.15,0.45,0,Mechanical recycling,Thermoplastic good recycling potential
+Polyethylene PE,0.55,0.15,0.45,0,Mechanical recycling,Thermoplastic good recycling potential
+EPDM rubber membrane,0.20,0.10,0.25,0,Energy recovery,Limited recycling bonded application
+TPO membrane,0.25,0.05,0.28,0,Energy recovery,Single ply membrane moderate options
+Fibre cement board,0.35,0.05,0.30,0,Crushing landfill,Composite material limited recycling
+Fibre cement cladding,0.35,0.05,0.30,0,Crushing landfill,Composite material limited recycling
+Calcium silicate board,0.45,0.05,0.40,0,Crushing limited recycling,Inorganic moderate circularity
+Vermiculite board,0.45,0.00,0.38,0,Inert landfill or reuse,Inorganic moderate circularity
+Rockwool (general),0.42,0.15,0.30,0,Landfill or energy recovery,Limited recycling options
+Rockwool (facade slab),0.42,0.15,0.30,0,Landfill or energy recovery,Limited recycling options
+Glasswool (general),0.35,0.25,0.28,0,Landfill or energy recovery,Limited recycling infrastructure
+Glasswool (roll),0.35,0.25,0.28,0,Landfill or energy recovery,Limited recycling infrastructure
+Concrete block,0.62,0.15,0.50,0,Crushing or reuse,Moderate circularity
+Lightweight concrete block,0.58,0.10,0.45,0,Crushing limited recycling,Lower density limits options
+Aerated concrete block,0.55,0.05,0.40,0,Crushing limited recycling,Porous structure limits options
+Hollow clay block,0.68,0.05,0.55,0,Reuse or crushing,Good reuse if careful demolition
+Mortar (general),0.30,0.05,0.15,0,Crushing landfill,Applied material hard to recover
+Mortar (cement),0.28,0.05,0.12,0,Crushing landfill,Applied material hard to recover
+Mortar (lime),0.42,0.05,0.30,0,Crushing limited recovery,Lime mortar more recoverable
+Adhesive (tile),0.10,0.00,0.08,0,Landfill,Applied adhesive extremely poor
+Sealant (silicone),0.05,0.00,0.05,0,Landfill,Applied sealant extremely poor
+Expanded clay (lightweight aggregate),0.65,0.00,0.55,0,Reuse as aggregate,Inert material good reuse
+Perlite (loose),0.55,0.00,0.50,0,Reuse as fill,Inert material reusable
+Soil (general),0.80,0.00,0.80,0,Reuse as fill,Natural material easy to reuse
+Soil (clay),0.80,0.00,0.80,0,Reuse as fill,Natural material easy to reuse
+Fill material,0.75,0.10,0.70,0,Reuse as fill,Generally reusable
+Hardcore fill,0.72,0.15,0.65,0,Reuse as fill,Crushed material reusable
