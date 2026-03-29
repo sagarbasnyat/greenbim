@@ -1,5 +1,21 @@
 from difflib import get_close_matches
 
+MATERIAL_CATEGORIES = {
+    "CONCRETE": ["concrete", "betoni", "cement", "grout"],
+    "STEEL": ["steel", "teräs", "aluminium", "metal"],
+    "TIMBER": ["timber", "wood", "puu", "glulam", "clt", "lvl"],
+    "MASONRY": ["brick", "tiili", "block", "harkko", "masonry", "stone", "calcium silicate", "kalkkihiekka"],
+    "INSULATION": ["insulation", "wool", "villa", "eps", "xps", "pur", "foam", "eriste"],
+    "GYPSUM": ["gypsum", "plasterboard", "kipsilevy"],
+}
+
+def _get_material_category(material_name):
+    name_lower = material_name.lower()
+    for category, keywords in MATERIAL_CATEGORIES.items():
+        if any(kw in name_lower for kw in keywords):
+            return category
+    return None
+
 SUBSTITUTION_DB = {
     "Concrete (general C25/30)": {
         "alternative": "Concrete (low carbon 50% GGBS)",
@@ -66,12 +82,12 @@ SUBSTITUTION_DB = {
         "standard": "EN 15804 / EN 15101"
     },
     "Brick (clay fired)": {
-        "alternative": "Timber (CLT cross laminated)",
-        "alt_ec_factor": 0.276,
-        "alt_density": 500,
-        "carbon_reduction_pct": 55,
-        "reason": "Cross laminated timber stores biogenic carbon and has much lower embodied carbon than clay brick. CLT is increasingly used in Finnish construction and complies with EN 16351.",
-        "standard": "EN 15804 / EN 16351"
+        "alternative": "Calcium silicate block (low carbon)",
+        "alt_ec_factor": 0.130,
+        "alt_density": 1800,
+        "carbon_reduction_pct": 40,
+        "reason": "Calcium silicate blocks have lower embodied carbon than clay-fired brick and provide equivalent load-bearing and acoustic performance. Widely used in Finnish construction and compliant with EN 771-2.",
+        "standard": "EN 15804 / EN 771-2"
     },
     "Gypsum board (standard)": {
         "alternative": "Gypsum board (recycled)",
@@ -120,12 +136,20 @@ def get_substitution_suggestions(carbon_df, top_n=3):
             ]
             sub = SUBSTITUTION_DB[original_key]
 
+            current_category = _get_material_category(material_name)
+            alternative_category = _get_material_category(sub["alternative"])
+            if current_category != alternative_category or current_category is None:
+                continue
+
             current_carbon = row["total_carbon"]
             alt_carbon = row["total_mass"] * sub["alt_ec_factor"]
             saving = current_carbon - alt_carbon
             saving_pct = (
                 saving / current_carbon * 100
             ) if current_carbon > 0 else 0
+
+            if saving_pct > 80:
+                continue
 
             suggestions.append({
                 "rank": len(suggestions) + 1,

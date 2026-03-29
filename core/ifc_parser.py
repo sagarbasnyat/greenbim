@@ -99,7 +99,7 @@ MATERIAL_NORMALISE = {
     "s420": "Steel",
     "stainless": "Stainless steel",
     "rostfri": "Stainless steel",
-    "aluminium": "Aluminium",
+    "aluminium": "Aluminium (general primary)",
     "aluminum": "Aluminium",
     "alumiini": "Aluminium",
     "copper": "Copper",
@@ -199,7 +199,7 @@ MATERIAL_NORMALISE = {
 
     # ── German concrete ───────────────────────────────────────
     "leichtbeton": "Ready-mix concrete, C25/30, GWP.REF",
-    "stahlbeton": "Ready-mix concrete, C25/30, GWP.REF",
+    "stahlbeton": "Reinforced concrete",
     "normalbeton": "Ready-mix concrete, C25/30, GWP.REF",
     "spannbeton": "Ready-mix concrete, C25/30, GWP.REF",
     "ortbeton": "Ready-mix concrete, C25/30, GWP.REF",
@@ -248,6 +248,8 @@ MATERIAL_NORMALISE = {
     # ── German glass and other ────────────────────────────────
     "glas": "Glass",
     "verglasung": "Glass",
+    "glasscheibe": "Glass",
+    "solid": "Ready-mix concrete, C25/30, GWP.REF",
     "estrich": "Ready-mix concrete, C25/30, GWP.REF",
     "putz": "Render",
     "aussenputz": "Render",
@@ -426,6 +428,21 @@ def extract_names_from_material_object(mat):
     return names
 
 
+def clean_material_name(name):
+    if not name:
+        return name
+    import re
+    # Strip trailing space + 4 or more digits
+    # Examples:
+    # "Stahlbeton 2747937872" → "Stahlbeton"
+    # "Aluminium 131198" → "Aluminium"
+    # "Kalksandstein 2816491304" → "Kalksandstein"
+    cleaned = re.sub(r'\s+\d{6,}$', '', name.strip())
+    # Strip trailing space + digits + letter codes
+    cleaned = re.sub(r'\s+\d+[A-Z]*$', '', cleaned.strip())
+    return cleaned.strip()
+
+
 # ─────────────────────────────────────────────────────────────
 # FULL MATERIAL EXTRACTION — ALL METHODS + TYPE LOOKUP
 # ─────────────────────────────────────────────────────────────
@@ -441,7 +458,9 @@ def extract_material_name(element):
                     rel.RelatingMaterial
                 )
                 if found:
-                    names.extend(found)
+                    names.extend(
+                        clean_material_name(n) for n in found
+                    )
                     source = "direct_association"
     except Exception:
         pass
@@ -462,7 +481,10 @@ def extract_material_name(element):
                             type_rel.RelatingMaterial
                         )
                         if found:
-                            names.extend(found)
+                            names.extend(
+                                clean_material_name(n)
+                                for n in found
+                            )
                             source = "type_association"
         except Exception:
             pass
@@ -477,7 +499,9 @@ def extract_material_name(element):
                 # Check if name contains a material keyword
                 for keyword in MATERIAL_NORMALISE.keys():
                     if keyword in name_lower:
-                        names.append(elem_name.strip())
+                        names.append(
+                            clean_material_name(elem_name)
+                        )
                         source = "element_name"
                         break
                 # Also try regex
@@ -486,7 +510,9 @@ def extract_material_name(element):
                         elem_name
                     )
                     if regex_result:
-                        names.append(elem_name.strip())
+                        names.append(
+                            clean_material_name(elem_name)
+                        )
                         source = "element_name"
         except Exception:
             pass
@@ -499,7 +525,9 @@ def extract_material_name(element):
                 name_lower = obj_type.lower().strip()
                 for keyword in MATERIAL_NORMALISE.keys():
                     if keyword in name_lower:
-                        names.append(obj_type.strip())
+                        names.append(
+                            clean_material_name(obj_type)
+                        )
                         source = "object_type"
                         break
         except Exception:
@@ -538,7 +566,9 @@ def extract_material_name(element):
                                         .wrappedValue
                                     ).strip()
                                     if val and len(val) > 1:
-                                        names.append(val)
+                                        names.append(
+                                            clean_material_name(val)
+                                        )
                                         source = "property_set"
         except Exception:
             pass
@@ -554,7 +584,9 @@ def extract_material_name(element):
                 if type_name and type_name.strip():
                     for keyword in MATERIAL_NORMALISE.keys():
                         if keyword in type_name.lower():
-                            names.append(type_name.strip())
+                            names.append(
+                                clean_material_name(type_name)
+                            )
                             source = "object_type"
                             break
         except Exception:
@@ -577,7 +609,9 @@ def extract_material_name(element):
                 if text.strip():
                     result = apply_regex_patterns(text)
                     if result:
-                        names.append(text.strip())
+                        names.append(
+                            clean_material_name(text)
+                        )
                         source = "regex_match"
                         break
         except Exception:
@@ -590,7 +624,9 @@ def extract_material_name(element):
             if elem_name.strip():
                 fuzzy = fuzzy_match_material(elem_name)
                 if fuzzy:
-                    names.append(fuzzy)
+                    names.append(
+                        clean_material_name(fuzzy)
+                    )
                     source = "fuzzy_match"
         except Exception:
             pass
@@ -601,8 +637,9 @@ def extract_material_name(element):
         "default", "material", "standard", "<unnamed>",
         "unnamed", "unset", "-", "n/a", "not defined",
         "not set", "by category", "generic",
-        "<by category>", "solid", "radial gradient fill",
+        "<by category>", "radial gradient fill",
         "gradient fill",
+
     }
     filtered = [
         n for n in names
@@ -666,7 +703,30 @@ def _geometry_volume(element, model):  # noqa: ARG001  model unused; kept for Th
     return None
 
 
-def extract_volume(element, model=None):
+def correct_volume_units(volume, element_type):
+    if volume <= 0:
+        return volume
+
+    # Thresholds above which a value is almost certainly in dm³
+    # and must be divided by 1000 to get m³.
+    dm3_threshold = {
+        "IfcSlab": 50,
+        "IfcWall": 30,
+        "IfcWallStandardCase": 30,
+        "IfcColumn": 5,
+        "IfcBeam": 5,
+        "IfcFooting": 50,
+        "IfcRoof": 50,
+    }
+
+    threshold = dm3_threshold.get(element_type, 20)
+
+    if volume > threshold:
+        return round(volume / 1000, 4)
+    return volume
+
+
+def _extract_volume_raw(element, model=None):
     """Return (volume_m3, method_label).
 
     Fast methods are tried first on every element:
@@ -874,6 +934,28 @@ def extract_volume(element, model=None):
             pass
 
     return 0.0, "none"
+
+
+def extract_volume(element, model=None):
+    """Return (volume_m3, method_label) with unit correction applied."""
+    volume, method = _extract_volume_raw(element, model)
+    volume = correct_volume_units(volume, element.is_a())
+    return volume, method
+
+
+def _correct_volume_units(volume):
+    """Return (corrected_volume, was_corrected).
+
+    A single IFC element volume > 500 m³ is almost certainly
+    exported in non-standard units:
+      - 500 < v < 500 000  → divide by 100  (dm³ → m³)
+      - v >= 500 000       → divide by 1 000 000  (mm³ → m³)
+    """
+    if volume <= 0 or volume <= 500:
+        return volume, False
+    if volume < 500_000:
+        return round(volume / 100, 4), True
+    return round(volume / 1_000_000, 4), True
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1107,6 +1189,9 @@ def parse_ifc(filepath):
                 volume, vol_method = extract_volume(
                     element, model
                 )
+                volume, vol_corrected = _correct_volume_units(
+                    volume
+                )
                 storey = extract_storey(element)
                 elem_type = clean_element_type(
                     element.is_a()
@@ -1129,6 +1214,7 @@ def parse_ifc(filepath):
                     "material": material,
                     "volume_m3": volume,
                     "volume_method": vol_method,
+                    "volume_unit_corrected": vol_corrected,
                     "storey": storey,
                     "ifc_type": element.is_a(),
                     "material_source": mat_source,
@@ -1144,8 +1230,9 @@ def parse_ifc(filepath):
         return pd.DataFrame(columns=[
             "element_id", "element_type", "name",
             "description", "material", "volume_m3",
-            "volume_method", "storey", "ifc_type",
-            "material_source", "confidence"
+            "volume_method", "volume_unit_corrected",
+            "storey", "ifc_type", "material_source",
+            "confidence"
         ])
 
     return df.reset_index(drop=True)

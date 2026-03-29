@@ -367,6 +367,22 @@ elif page == "📦 IFC Parser":
         df = st.session_state.ifc_df
         summary = get_summary(df)
 
+        if "volume_unit_corrected" in df.columns:
+            corrected_count = int(
+                df["volume_unit_corrected"].sum()
+            )
+            total_count = len(df)
+            if (
+                total_count > 0
+                and corrected_count / total_count > 0.10
+            ):
+                st.warning(
+                    f"Volume units were automatically corrected "
+                    f"for {corrected_count} elements. "
+                    f"The IFC file may be exporting volumes "
+                    f"in non-standard units."
+                )
+
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Total Elements", summary["total_elements"])
         c2.metric("Unique Materials", summary["unique_materials"])
